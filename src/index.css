@@ -1,0 +1,73 @@
+/* The theme palettes (--bg, --accent, --item-N, color-scheme, …) ship with the
+   package and are imported in main.tsx via `@lvucodes/ui/theme.css`. This file
+   owns only the site's base document styles, all derived from those palette
+   tokens so they track the active theme. */
+:root {
+  --sans: "Atkinson Hyperlegible Next", "B612", "IBM Plex Sans", "Lexend",
+    "Libertinus Sans", "Noto Sans", "Oxygen", system-ui, sans-serif;
+  --mono: "Atkinson Hyperlegible Mono", "B612 Mono", "IBM Plex Mono",
+    "Libertinus Mono", "Noto Sans Mono", "Nova Mono", "Oxygen Mono",
+    ui-monospace, monospace;
+
+  font: 16px/1.45 var(--sans);
+  color: var(--text-h);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --border is translucent in every profile — it is authored to sit on top of
+   that profile's --bg. Layering it over --bg here reproduces the border's real
+   colour instead of compositing it against the browser canvas. Declared on body
+   alone so it propagates to the canvas and is never painted twice. */
+body {
+  margin: 0;
+  background-color: var(--bg);
+  background-image: linear-gradient(var(--border), var(--border));
+  min-height: 100svh;
+}
+
+#root {
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-family: var(--sans);
+  font-weight: 500;
+  color: var(--text-h);
+  margin-block: 0;
+  margin: 12px auto;
+  text-align: center;
+}
+
+h2 {
+  font-weight: 400;
+  margin: 0;
+  text-align: center;
+}
+
+b {
+  font-weight: 500;
+}
+
+p {
+  margin: 0;
+}
+
+/* Native form controls don't inherit font-family — force the site font. */
+button,
+input,
+select,
+textarea {
+  font-family: var(--sans);
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--code-bg);
+  color: var(--text-h);
+}
