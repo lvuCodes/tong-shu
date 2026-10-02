@@ -1,0 +1,47 @@
+{
+  "name": "site-template",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "prettier": "@lvucodes/ui/prettier",
+  "scripts": {
+    "dev": "vite --open",
+    "build": "tsc -b && vite build",
+    "verify": "npm run lint && npm run format:check && npm test && npm run build",
+    "prepare": "git config core.hooksPath .githooks",
+    "lint": "eslint . && stylelint \"**/*.css\"",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "presmoke": "npm run build",
+    "smoke": "playwright test"
+  },
+  "dependencies": {
+    "@lvucodes/ui": "^0.1.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.12.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "@vitest/coverage-v8": "^4.1.10",
+    "eslint": "^10.3.0",
+    "jsdom": "^29.1.1",
+    "prettier": "^3.9.5",
+    "stylelint": "^17.14.1",
+    "typescript": "~7.0.2",
+    "vite": "^8.0.12",
+    "vitest": "^4.1.7"
+  }
+}
