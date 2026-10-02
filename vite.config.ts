@@ -6,7 +6,7 @@ export default defineConfig({
   // Relative asset paths so the built site also runs from file:// or a subpath.
   base: "./",
   plugins: [react()],
-  server: { watch: { ignored: ["**/coverage/**", "**/dist/**"] } },
+  server: { port: 5818, watch: { ignored: ["**/coverage/**", "**/dist/**"] } },
   test: {
     // Site tests only — e2e/ belongs to Playwright.
     include: ["src/**/*.test.{ts,tsx}"],
