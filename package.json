@@ -1,5 +1,5 @@
 {
-  "name": "site-template",
+  "name": "tong-shu",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@lvucodes/ui": "^0.1.0",
+    "lunar-javascript": "1.7.7",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },

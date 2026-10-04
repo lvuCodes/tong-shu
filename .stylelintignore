@@ -1,0 +1,4 @@
+local/
+pipeline/
+dist/
+node_modules/

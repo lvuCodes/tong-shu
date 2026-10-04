@@ -1,0 +1,1261 @@
+{
+ "by_year": {
+  "2020": {
+   "clash": {
+    "agree": 366
+   },
+   "hour_luck": {
+    "agree": 4329,
+    "disagree": 63
+   },
+   "ji_exact": {
+    "agree": 333,
+    "disagree": 33
+   },
+   "pillar_day": {
+    "agree": 366
+   },
+   "pillar_month": {
+    "agree": 365,
+    "disagree": 1
+   },
+   "pillar_year": {
+    "agree": 366
+   },
+   "sha": {
+    "agree": 366
+   },
+   "wedding_cco": {
+    "agree": 366
+   },
+   "wedding_chinesefortunecalendar": {
+    "agree": 239,
+    "disagree": 127
+   },
+   "wedding_chinesefortunecalendar_listed": {
+    "agree": 342,
+    "disagree": 24
+   },
+   "yi_exact": {
+    "agree": 360,
+    "disagree": 6
+   }
+  },
+  "2021": {
+   "clash": {
+    "agree": 365
+   },
+   "hour_luck": {
+    "agree": 4319,
+    "disagree": 61
+   },
+   "ji_exact": {
+    "disagree": 362,
+    "agree": 3
+   },
+   "pillar_day": {
+    "agree": 365
+   },
+   "pillar_month": {
+    "agree": 365
+   },
+   "pillar_year": {
+    "agree": 365
+   },
+   "sha": {
+    "agree": 365
+   },
+   "wedding_cco": {
+    "disagree": 161,
+    "agree": 204
+   },
+   "wedding_chinesefortunecalendar": {
+    "agree": 245,
+    "disagree": 120
+   },
+   "wedding_chinesefortunecalendar_listed": {
+    "agree": 343,
+    "disagree": 22
+   },
+   "yi_exact": {
+    "disagree": 365
+   }
+  },
+  "2022": {
+   "clash": {
+    "agree": 365
+   },
+   "hour_luck": {
+    "agree": 4320,
+    "disagree": 60
+   },
+   "ji_exact": {
+    "agree": 332,
+    "disagree": 33
+   },
+   "pillar_day": {
+    "agree": 365
+   },
+   "pillar_month": {
+    "agree": 365
+   },
+   "pillar_year": {
+    "agree": 365
+   },
+   "sha": {
+    "agree": 365
+   },
+   "wedding_cco": {
+    "agree": 365
+   },
+   "wedding_chinesefortunecalendar": {
+    "agree": 252,
+    "disagree": 113
+   },
+   "wedding_chinesefortunecalendar_listed": {
+    "agree": 350,
+    "disagree": 15
+   },
+   "yi_exact": {
+    "agree": 355,
+    "disagree": 10
+   }
+  },
+  "2023": {
+   "clash": {
+    "agree": 365
+   },
+   "hour_luck": {
+    "agree": 4319,
+    "disagree": 61
+   },
+   "ji_exact": {
+    "agree": 333,
+    "disagree": 32
+   },
+   "pillar_day": {
+    "agree": 365
+   },
+   "pillar_month": {
+    "agree": 365
+   },
+   "pillar_year": {
+    "agree": 365
+   },
+   "sha": {
+    "agree": 365
+   },
+   "wedding_cco": {
+    "agree": 365
+   },
+   "wedding_chinesefortunecalendar": {
+    "agree": 246,
+    "disagree": 119
+   },
+   "wedding_chinesefortunecalendar_listed": {
+    "agree": 341,
+    "disagree": 24
+   },
+   "yi_exact": {
+    "agree": 356,
+    "disagree": 9
+   }
+  },
+  "2024": {
+   "clash": {
+    "agree": 366
+   },
+   "hour_luck": {
+    "agree": 4332,
+    "disagree": 60
+   },
+   "ji_exact": {
+    "agree": 339,
+    "disagree": 27
+   },
+   "pillar_day": {
+    "agree": 366
+   },
+   "pillar_month": {
+    "agree": 366
+   },
+   "pillar_year": {
+    "agree": 366
+   },
+   "sha": {
+    "agree": 366
+   },
+   "wedding_cco": {
+    "agree": 366
+   },
+   "wedding_chinesefortunecalendar": {
+    "agree": 243,
+    "disagree": 123
+   },
+   "wedding_chinesefortunecalendar_listed": {
+    "agree": 343,
+    "disagree": 23
+   },
+   "yi_exact": {
+    "agree": 359,
+    "disagree": 7
+   }
+  },
+  "2025": {
+   "clash": {
+    "agree": 365
+   },
+   "hour_luck": {
+    "agree": 4319,
+    "disagree": 61
+   },
+   "ji_exact": {
+    "agree": 336,
+    "disagree": 29
+   },
+   "pillar_day": {
+    "agree": 365
+   },
+   "pillar_month": {
+    "agree": 365
+   },
+   "pillar_year": {
+    "agree": 365
+   },
+   "sha": {
+    "agree": 365
+   },
+   "wedding_cco": {
+    "agree": 365
+   },
+   "wedding_chinesefortunecalendar": {
+    "agree": 249,
+    "disagree": 116
+   },
+   "wedding_chinesefortunecalendar_listed": {
+    "agree": 349,
+    "disagree": 16
+   },
+   "yi_exact": {
+    "agree": 358,
+    "disagree": 7
+   }
+  },
+  "2026": {
+   "clash": {
+    "agree": 365
+   },
+   "hour_luck": {
+    "agree": 4319,
+    "disagree": 61
+   },
+   "ji_exact": {
+    "agree": 339,
+    "disagree": 26
+   },
+   "officer_tst": {
+    "agree": 365
+   },
+   "pillar_day": {
+    "agree": 365
+   },
+   "pillar_month": {
+    "agree": 365
+   },
+   "pillar_year": {
+    "agree": 365
+   },
+   "sha": {
+    "agree": 365
+   },
+   "wedding_baibai": {
+    "agree": 365
+   },
+   "wedding_baibai_listed": {
+    "agree": 365
+   },
+   "wedding_cco": {
+    "agree": 365
+   },
+   "wedding_chinesefortunecalendar": {
+    "agree": 237,
+    "disagree": 128
+   },
+   "wedding_chinesefortunecalendar_listed": {
+    "agree": 338,
+    "disagree": 27
+   },
+   "wedding_tongshutoday": {
+    "agree": 223,
+    "disagree": 142
+   },
+   "wedding_tongshutoday_listed": {
+    "agree": 316,
+    "disagree": 49
+   },
+   "yi_exact": {
+    "agree": 360,
+    "disagree": 5
+   }
+  },
+  "2027": {
+   "clash": {
+    "agree": 365
+   },
+   "hour_luck": {
+    "agree": 4318,
+    "disagree": 62
+   },
+   "ji_exact": {
+    "agree": 344,
+    "disagree": 21
+   },
+   "officer_tst": {
+    "agree": 365
+   },
+   "pillar_day": {
+    "agree": 365
+   },
+   "pillar_month": {
+    "agree": 365
+   },
+   "pillar_year": {
+    "agree": 365
+   },
+   "sha": {
+    "agree": 365
+   },
+   "wedding_baibai": {
+    "agree": 365
+   },
+   "wedding_baibai_listed": {
+    "agree": 365
+   },
+   "wedding_cco": {
+    "agree": 365
+   },
+   "wedding_chinesefortunecalendar": {
+    "disagree": 132,
+    "agree": 233
+   },
+   "wedding_chinesefortunecalendar_listed": {
+    "agree": 342,
+    "disagree": 23
+   },
+   "wedding_tongshutoday": {
+    "disagree": 155,
+    "agree": 210
+   },
+   "wedding_tongshutoday_listed": {
+    "agree": 312,
+    "disagree": 53
+   },
+   "yi_exact": {
+    "agree": 364,
+    "disagree": 1
+   }
+  },
+  "2028": {
+   "clash": {
+    "agree": 366
+   },
+   "hour_luck": {
+    "agree": 4331,
+    "disagree": 61
+   },
+   "ji_exact": {
+    "disagree": 364,
+    "agree": 2
+   },
+   "officer_tst": {
+    "agree": 366
+   },
+   "pillar_day": {
+    "agree": 366
+   },
+   "pillar_month": {
+    "agree": 366
+   },
+   "pillar_year": {
+    "agree": 366
+   },
+   "sha": {
+    "agree": 366
+   },
+   "wedding_baibai": {
+    "agree": 366
+   },
+   "wedding_baibai_listed": {
+    "agree": 366
+   },
+   "wedding_cco": {
+    "agree": 277,
+    "disagree": 89
+   },
+   "wedding_chinesefortunecalendar": {
+    "agree": 228,
+    "disagree": 138
+   },
+   "wedding_chinesefortunecalendar_listed": {
+    "agree": 340,
+    "disagree": 26
+   },
+   "wedding_tongshutoday": {
+    "agree": 219,
+    "disagree": 147
+   },
+   "wedding_tongshutoday_listed": {
+    "agree": 319,
+    "disagree": 47
+   },
+   "yi_exact": {
+    "disagree": 362,
+    "agree": 4
+   }
+  },
+  "2029": {
+   "clash": {
+    "agree": 365
+   },
+   "hour_luck": {
+    "agree": 4320,
+    "disagree": 60
+   },
+   "ji_exact": {
+    "agree": 335,
+    "disagree": 30
+   },
+   "pillar_day": {
+    "agree": 365
+   },
+   "pillar_month": {
+    "agree": 365
+   },
+   "pillar_year": {
+    "agree": 365
+   },
+   "sha": {
+    "agree": 365
+   },
+   "wedding_cco": {
+    "agree": 365
+   },
+   "wedding_chinesefortunecalendar": {
+    "agree": 240,
+    "disagree": 125
+   },
+   "wedding_chinesefortunecalendar_listed": {
+    "agree": 343,
+    "disagree": 22
+   },
+   "yi_exact": {
+    "agree": 361,
+    "disagree": 4
+   }
+  },
+  "2030": {
+   "clash": {
+    "agree": 365
+   },
+   "hour_luck": {
+    "agree": 4320,
+    "disagree": 60
+   },
+   "ji_exact": {
+    "agree": 331,
+    "disagree": 34
+   },
+   "pillar_day": {
+    "agree": 365
+   },
+   "pillar_month": {
+    "agree": 365
+   },
+   "pillar_year": {
+    "agree": 365
+   },
+   "sha": {
+    "agree": 365
+   },
+   "wedding_cco": {
+    "agree": 365
+   },
+   "wedding_chinesefortunecalendar": {
+    "agree": 234,
+    "disagree": 131
+   },
+   "wedding_chinesefortunecalendar_listed": {
+    "agree": 342,
+    "disagree": 23
+   },
+   "yi_exact": {
+    "agree": 360,
+    "disagree": 5
+   }
+  },
+  "2031": {
+   "clash": {
+    "agree": 365
+   },
+   "hour_luck": {
+    "agree": 4318,
+    "disagree": 62
+   },
+   "ji_exact": {
+    "agree": 334,
+    "disagree": 31
+   },
+   "pillar_day": {
+    "agree": 365
+   },
+   "pillar_month": {
+    "agree": 365
+   },
+   "pillar_year": {
+    "agree": 365
+   },
+   "sha": {
+    "agree": 365
+   },
+   "wedding_cco": {
+    "agree": 365
+   },
+   "wedding_chinesefortunecalendar": {
+    "disagree": 137,
+    "agree": 228
+   },
+   "wedding_chinesefortunecalendar_listed": {
+    "agree": 340,
+    "disagree": 25
+   },
+   "yi_exact": {
+    "agree": 360,
+    "disagree": 5
+   }
+  },
+  "2032": {
+   "clash": {
+    "agree": 366
+   },
+   "hour_luck": {
+    "agree": 4330,
+    "disagree": 62
+   },
+   "ji_exact": {
+    "disagree": 360,
+    "agree": 6
+   },
+   "pillar_day": {
+    "agree": 366
+   },
+   "pillar_month": {
+    "agree": 366
+   },
+   "pillar_year": {
+    "agree": 366
+   },
+   "sha": {
+    "agree": 366
+   },
+   "wedding_cco": {
+    "agree": 224,
+    "disagree": 142
+   },
+   "wedding_chinesefortunecalendar": {
+    "agree": 246,
+    "disagree": 120
+   },
+   "wedding_chinesefortunecalendar_listed": {
+    "agree": 340,
+    "disagree": 26
+   },
+   "yi_exact": {
+    "disagree": 366
+   }
+  },
+  "2033": {
+   "clash": {
+    "agree": 365
+   },
+   "hour_luck": {
+    "agree": 4320,
+    "disagree": 60
+   },
+   "ji_exact": {
+    "disagree": 357,
+    "agree": 8
+   },
+   "pillar_day": {
+    "agree": 365
+   },
+   "pillar_month": {
+    "agree": 365
+   },
+   "pillar_year": {
+    "agree": 365
+   },
+   "sha": {
+    "agree": 365
+   },
+   "wedding_cco": {
+    "agree": 223,
+    "disagree": 142
+   },
+   "wedding_chinesefortunecalendar": {
+    "agree": 246,
+    "disagree": 119
+   },
+   "wedding_chinesefortunecalendar_listed": {
+    "agree": 348,
+    "disagree": 17
+   },
+   "yi_exact": {
+    "disagree": 365
+   }
+  },
+  "2034": {
+   "clash": {
+    "agree": 365
+   },
+   "hour_luck": {
+    "agree": 4319,
+    "disagree": 61
+   },
+   "ji_exact": {
+    "disagree": 358,
+    "agree": 7
+   },
+   "pillar_day": {
+    "agree": 365
+   },
+   "pillar_month": {
+    "agree": 365
+   },
+   "pillar_year": {
+    "agree": 365
+   },
+   "sha": {
+    "agree": 365
+   },
+   "wedding_cco": {
+    "disagree": 146,
+    "agree": 219
+   },
+   "wedding_chinesefortunecalendar": {
+    "agree": 252,
+    "disagree": 113
+   },
+   "wedding_chinesefortunecalendar_listed": {
+    "agree": 342,
+    "disagree": 23
+   },
+   "yi_exact": {
+    "disagree": 364,
+    "agree": 1
+   }
+  },
+  "2035": {
+   "clash": {
+    "agree": 365
+   },
+   "hour_luck": {
+    "agree": 4320,
+    "disagree": 60
+   },
+   "ji_exact": {
+    "disagree": 355,
+    "agree": 10
+   },
+   "pillar_day": {
+    "agree": 365
+   },
+   "pillar_month": {
+    "agree": 365
+   },
+   "pillar_year": {
+    "agree": 365
+   },
+   "sha": {
+    "agree": 365
+   },
+   "wedding_cco": {
+    "agree": 227,
+    "disagree": 138
+   },
+   "wedding_chinesefortunecalendar": {
+    "agree": 231,
+    "disagree": 134
+   },
+   "wedding_chinesefortunecalendar_listed": {
+    "agree": 334,
+    "disagree": 31
+   },
+   "yi_exact": {
+    "disagree": 365
+   }
+  }
+ },
+ "terms_cco_has_lunar_python_lacks": [
+  [
+   "ji",
+   "安葬",
+   594
+  ],
+  [
+   "yi",
+   "修造",
+   587
+  ],
+  [
+   "ji",
+   "入宅",
+   546
+  ],
+  [
+   "yi",
+   "祭祀",
+   530
+  ],
+  [
+   "ji",
+   "嫁娶",
+   527
+  ],
+  [
+   "yi",
+   "动土",
+   509
+  ],
+  [
+   "yi",
+   "祈福",
+   473
+  ],
+  [
+   "yi",
+   "安床",
+   460
+  ],
+  [
+   "yi",
+   "订盟",
+   445
+  ],
+  [
+   "yi",
+   "纳采",
+   437
+  ],
+  [
+   "ji",
+   "开市",
+   430
+  ],
+  [
+   "ji",
+   "破土",
+   408
+  ],
+  [
+   "yi",
+   "上梁",
+   404
+  ],
+  [
+   "ji",
+   "作灶",
+   397
+  ],
+  [
+   "yi",
+   "开光",
+   397
+  ],
+  [
+   "yi",
+   "余事勿取",
+   387
+  ],
+  [
+   "yi",
+   "栽种",
+   384
+  ],
+  [
+   "yi",
+   "入殓",
+   382
+  ],
+  [
+   "yi",
+   "拆卸",
+   381
+  ],
+  [
+   "yi",
+   "出行",
+   375
+  ],
+  [
+   "yi",
+   "入宅",
+   374
+  ],
+  [
+   "yi",
+   "解除",
+   364
+  ],
+  [
+   "yi",
+   "起基",
+   363
+  ],
+  [
+   "ji",
+   "掘井",
+   360
+  ],
+  [
+   "yi",
+   "移徙",
+   354
+  ],
+  [
+   "ji",
+   "动土",
+   353
+  ],
+  [
+   "yi",
+   "除服",
+   345
+  ],
+  [
+   "yi",
+   "成服",
+   344
+  ],
+  [
+   "ji",
+   "移徙",
+   337
+  ],
+  [
+   "yi",
+   "出火",
+   335
+  ],
+  [
+   "yi",
+   "移柩",
+   330
+  ],
+  [
+   "yi",
+   "启攒",
+   327
+  ],
+  [
+   "yi",
+   "安葬",
+   326
+  ],
+  [
+   "yi",
+   "纳畜",
+   303
+  ],
+  [
+   "yi",
+   "破土",
+   299
+  ],
+  [
+   "yi",
+   "冠笄",
+   298
+  ],
+  [
+   "yi",
+   "安香",
+   291
+  ],
+  [
+   "yi",
+   "嫁娶",
+   289
+  ],
+  [
+   "yi",
+   "求嗣",
+   289
+  ],
+  [
+   "yi",
+   "会亲友",
+   288
+  ]
+ ],
+ "terms_lunar_python_has_cco_lacks": [
+  [
+   "yi",
+   "安葬",
+   532
+  ],
+  [
+   "yi",
+   "嫁娶",
+   529
+  ],
+  [
+   "yi",
+   "入殓",
+   490
+  ],
+  [
+   "yi",
+   "出行",
+   486
+  ],
+  [
+   "yi",
+   "祭祀",
+   478
+  ],
+  [
+   "yi",
+   "开光",
+   474
+  ],
+  [
+   "ji",
+   "安葬",
+   466
+  ],
+  [
+   "yi",
+   "动土",
+   445
+  ],
+  [
+   "yi",
+   "安床",
+   441
+  ],
+  [
+   "yi",
+   "解除",
+   437
+  ],
+  [
+   "yi",
+   "移柩",
+   421
+  ],
+  [
+   "yi",
+   "祈福",
+   416
+  ],
+  [
+   "yi",
+   "破土",
+   407
+  ],
+  [
+   "ji",
+   "作灶",
+   403
+  ],
+  [
+   "yi",
+   "移徙",
+   397
+  ],
+  [
+   "yi",
+   "纳采",
+   396
+  ],
+  [
+   "yi",
+   "入宅",
+   396
+  ],
+  [
+   "yi",
+   "启攒",
+   388
+  ],
+  [
+   "yi",
+   "拆卸",
+   388
+  ],
+  [
+   "yi",
+   "开市",
+   387
+  ],
+  [
+   "ji",
+   "入宅",
+   385
+  ],
+  [
+   "ji",
+   "嫁娶",
+   384
+  ],
+  [
+   "yi",
+   "余事勿取",
+   380
+  ],
+  [
+   "yi",
+   "交易",
+   370
+  ],
+  [
+   "yi",
+   "立券",
+   361
+  ],
+  [
+   "yi",
+   "求嗣",
+   336
+  ],
+  [
+   "yi",
+   "除服",
+   332
+  ],
+  [
+   "ji",
+   "开市",
+   329
+  ],
+  [
+   "yi",
+   "成服",
+   323
+  ],
+  [
+   "yi",
+   "订盟",
+   321
+  ],
+  [
+   "yi",
+   "修造",
+   318
+  ],
+  [
+   "ji",
+   "动土",
+   300
+  ],
+  [
+   "yi",
+   "纳畜",
+   299
+  ],
+  [
+   "yi",
+   "会亲友",
+   298
+  ],
+  [
+   "yi",
+   "裁衣",
+   294
+  ],
+  [
+   "yi",
+   "进人口",
+   280
+  ],
+  [
+   "yi",
+   "上梁",
+   278
+  ],
+  [
+   "yi",
+   "栽种",
+   273
+  ],
+  [
+   "yi",
+   "出火",
+   268
+  ],
+  [
+   "yi",
+   "沐浴",
+   262
+  ]
+ ],
+ "mismatch_samples": {
+  "pillar_month": [
+   [
+    "2020-12-06",
+    "戊子",
+    "丁亥"
+   ]
+  ]
+ },
+ "mismatch_counts": {
+  "pillar_month": 1
+ },
+ "cco_yiji_shift": {
+  "2020": {
+   "day 0": 330,
+   "month actual": 330,
+   "day None": 36,
+   "month None": 36
+  },
+  "2021": {
+   "day 40": 336,
+   "month actual": 336,
+   "day None": 29,
+   "month None": 29
+  },
+  "2022": {
+   "day 0": 325,
+   "month actual": 325,
+   "day None": 40,
+   "month None": 40
+  },
+  "2023": {
+   "day 0": 325,
+   "month actual": 325,
+   "day None": 40,
+   "month None": 40
+  },
+  "2024": {
+   "day 0": 333,
+   "month actual": 333,
+   "day None": 33,
+   "month None": 33
+  },
+  "2025": {
+   "day 0": 330,
+   "month actual": 330,
+   "day None": 35,
+   "month None": 35
+  },
+  "2026": {
+   "day 0": 335,
+   "month actual": 335,
+   "day None": 30,
+   "month None": 30
+  },
+  "2027": {
+   "day 0": 343,
+   "month actual": 343,
+   "day None": 22,
+   "month None": 22
+  },
+  "2028": {
+   "day 24": 319,
+   "month actual": 319,
+   "day None": 47,
+   "month None": 47
+  },
+  "2029": {
+   "day 0": 334,
+   "month actual": 334,
+   "day None": 31,
+   "month None": 31
+  },
+  "2030": {
+   "day 0": 329,
+   "month actual": 329,
+   "day None": 36,
+   "month None": 36
+  },
+  "2031": {
+   "day 0": 332,
+   "month actual": 332,
+   "day None": 33,
+   "month None": 33
+  },
+  "2032": {
+   "day 33": 317,
+   "month 子": 290,
+   "day None": 37,
+   "month None": 37,
+   "month actual": 30,
+   "day 2": 3,
+   "month 午": 3,
+   "day 54": 3,
+   "month 巳": 3,
+   "day 22": 2,
+   "day 41": 2,
+   "month 丑": 1,
+   "day 26": 1,
+   "month 辰": 1,
+   "day 15": 1,
+   "month 未": 1
+  },
+  "2033": {
+   "day 25": 316,
+   "month 子": 292,
+   "day None": 38,
+   "month None": 38,
+   "month actual": 26,
+   "day 33": 3,
+   "month 午": 3,
+   "day 46": 3,
+   "month 巳": 3,
+   "day 14": 2,
+   "month 丑": 1,
+   "day 18": 1,
+   "month 辰": 1,
+   "day 54": 1,
+   "month 未": 1,
+   "day 7": 1
+  },
+  "2034": {
+   "day 15": 317,
+   "month 子": 290,
+   "day None": 36,
+   "month None": 36,
+   "month actual": 30,
+   "day 23": 3,
+   "day 36": 3,
+   "month 巳": 3,
+   "month 丑": 2,
+   "day 8": 2,
+   "day 4": 2,
+   "month 午": 2,
+   "month 辰": 1,
+   "day 44": 1,
+   "month 未": 1,
+   "day 57": 1
+  },
+  "2035": {
+   "day 1": 317,
+   "month 子": 290,
+   "day None": 36,
+   "month None": 36,
+   "month actual": 29,
+   "day 22": 3,
+   "month 巳": 3,
+   "month 丑": 2,
+   "day 54": 2,
+   "day 9": 2,
+   "day 50": 2,
+   "day 43": 2,
+   "month 酉": 2,
+   "month 辰": 1,
+   "month 午": 1,
+   "day 30": 1,
+   "month 未": 1
+  }
+ }
+}

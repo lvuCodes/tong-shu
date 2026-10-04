@@ -1,0 +1,99 @@
+from pypinyin import lazy_pinyin
+
+STEMS = {"甲": "Jia Yang Wood", "乙": "Yi Yin Wood", "丙": "Bing Yang Fire", "丁": "Ding Yin Fire", "戊": "Wu Yang Earth", "己": "Ji Yin Earth", "庚": "Geng Yang Metal", "辛": "Xin Yin Metal", "壬": "Ren Yang Water", "癸": "Gui Yin Water"}
+BRANCHES = {"子": "Zi Rat", "丑": "Chou Ox", "寅": "Yin Tiger", "卯": "Mao Rabbit", "辰": "Chen Dragon", "巳": "Si Snake", "午": "Wu Horse", "未": "Wei Goat", "申": "Shen Monkey", "酉": "You Rooster", "戌": "Xu Dog", "亥": "Hai Pig"}
+
+TERMS = {
+    "日柱": "Day pillar", "建除": "Day officer", "天神": "Day god", "宿": "Lunar mansion", "纳音": "Sound element", "冲": "Clash", "煞": "Sha direction",
+    "节气": "Solar term", "物候": "Seasonal sign", "九星": "Nine star", "六曜": "Six-day cycle", "胎神": "Fetus god position", "彭祖百忌": "Peng Zu taboos",
+    "吉神宜趋": "Lucky stars", "凶煞宜忌": "Unlucky stars", "嫁娶": "wedding", "时辰": "Chinese hour", "干支": "Stem and branch", "吉凶": "Luck",
+    "宜": "Suitable", "忌": "Avoid", "吉": "good", "凶": "bad", "黄道": "Yellow Belt, auspicious", "黑道": "Black Belt, inauspicious",
+    "喜神": "Joy god", "福神": "Fortune god", "财神": "Wealth god", "阳贵": "Yang noble", "阴贵": "Yin noble",
+    "正北": "North", "正南": "South", "正东": "East", "正西": "West", "东北": "Northeast", "东南": "Southeast", "西北": "Northwest", "西南": "Southwest",
+    "北": "North", "南": "South", "东": "East", "西": "West",
+    "六合": "six harmony", "三合": "three harmony", "害": "harm", "刑": "punishment", "自刑": "self-punishment", "破": "break",
+    "无春": "No spring", "单春": "Single spring", "双春": "Double spring",
+    "年": "year", "月": "month", "日": "day",
+    "乘船": "board a boat", "求财": "seek wealth", "见贵": "meet nobles", "订婚": "engagement", "酬神": "thank the gods",
+}
+
+SOLAR_TERMS = {
+    "立春": "Start of Spring", "雨水": "Rain Water", "惊蛰": "Awakening of Insects", "春分": "Spring Equinox", "清明": "Clear and Bright", "谷雨": "Grain Rain",
+    "立夏": "Start of Summer", "小满": "Grain Buds", "芒种": "Grain in Ear", "夏至": "Summer Solstice", "小暑": "Minor Heat", "大暑": "Major Heat",
+    "立秋": "Start of Autumn", "处暑": "End of Heat", "白露": "White Dew", "秋分": "Autumn Equinox", "寒露": "Cold Dew", "霜降": "Frost's Descent",
+    "立冬": "Start of Winter", "小雪": "Minor Snow", "大雪": "Major Snow", "冬至": "Winter Solstice", "小寒": "Minor Cold", "大寒": "Major Cold",
+}
+
+MANSIONS = {
+    "角": "Horn", "亢": "Neck", "氐": "Root", "房": "Room", "心": "Heart", "尾": "Tail", "箕": "Winnowing Basket",
+    "斗": "Dipper", "牛": "Ox", "女": "Girl", "虚": "Emptiness", "危": "Rooftop", "室": "Encampment", "壁": "Wall",
+    "奎": "Legs", "娄": "Bond", "胃": "Stomach", "昴": "Hairy Head", "毕": "Net", "觜": "Turtle Beak", "参": "Three Stars",
+    "井": "Well", "鬼": "Ghost", "柳": "Willow", "星": "Star", "张": "Extended Net", "翼": "Wings", "轸": "Chariot",
+}
+
+NAYIN = {
+    "海中金": "Sea Metal", "炉中火": "Furnace Fire", "大林木": "Forest Wood", "路旁土": "Roadside Earth", "剑锋金": "Sword Metal", "山头火": "Mountain Fire",
+    "涧下水": "Stream Water", "城头土": "Rampart Earth", "白蜡金": "Pewter Metal", "杨柳木": "Willow Wood", "泉中水": "Spring Water", "屋上土": "Roof Earth",
+    "霹雳火": "Thunder Fire", "松柏木": "Pine Wood", "长流水": "River Water", "沙中金": "Sand Metal", "山下火": "Foothill Fire", "平地木": "Flatland Wood",
+    "壁上土": "Wall Earth", "金箔金": "Gold Leaf Metal", "覆灯火": "Lamp Fire", "天河水": "Heavenly River Water", "大驿土": "Highway Earth", "钗钏金": "Jewelry Metal",
+    "桑柘木": "Mulberry Wood", "大溪水": "Brook Water", "沙中土": "Sand Earth", "天上火": "Heavenly Fire", "石榴木": "Pomegranate Wood", "大海水": "Ocean Water",
+}
+
+LIUYAO = {"先胜": "Senshō, win early", "友引": "Tomobiki, pull friends", "先负": "Senbu, lose early", "佛灭": "Butsumetsu, Buddha's death", "大安": "Taian, great peace", "赤口": "Shakkō, red mouth"}
+
+NINE_STAR = {"一": "1", "二": "2", "三": "3", "四": "4", "五": "5", "六": "6", "七": "7", "八": "8", "九": "9", "白": "White", "黑": "Black", "碧": "Jade", "绿": "Green", "黄": "Yellow", "赤": "Red", "紫": "Purple", "水": "Water", "土": "Earth", "木": "Wood", "金": "Metal", "火": "Fire"}
+
+STARS = {
+    "天恩": "Heavenly Grace", "五虚": "Five Voids", "鸣吠": "Crowing and Barking", "鸣吠对": "Crowing and Barking Pair", "不将": "No Generals", "母仓": "Mother's Granary",
+    "四相": "Four Ministers", "五离": "Five Separations", "三合": "Three Harmony", "五合": "Five Harmony", "除神": "Removing Spirit", "重日": "Double Day",
+    "月德": "Monthly Virtue", "复日": "Repeat Day", "月空": "Monthly Void", "月恩": "Monthly Grace", "金堂": "Golden Hall", "月德合": "Monthly Virtue Union",
+    "五富": "Five Riches", "天牢": "Heavenly Prison", "时阴": "Seasonal Yin", "生气": "Living Energy", "天罡": "Heavenly Ladle", "临日": "Arriving Day",
+    "王日": "King Day", "游祸": "Roaming Calamity", "六仪": "Six Rites", "厌对": "Opposed Loathing", "招摇": "Swaying Star", "要安": "Essential Peace",
+    "玉宇": "Jade Palace", "致死": "Bringing Death", "小耗": "Minor Loss", "敬安": "Respectful Peace", "官日": "Official Day", "相日": "Minister Day",
+    "驿马": "Traveling Horse", "天后": "Heavenly Empress", "时德": "Seasonal Virtue", "民日": "People Day", "死神": "Death Spirit", "往亡": "Going to Ruin",
+    "死气": "Dead Energy", "八专": "Eight Specialized", "勾陈": "Hook Array", "解神": "Releasing Spirit", "青龙": "Azure Dragon", "六合": "Six Harmony",
+    "血支": "Blood Branch", "白虎": "White Tiger", "月建": "Month Establish", "小时": "Minor Time", "月厌": "Monthly Loathing", "月害": "Monthly Harm",
+    "元武": "Dark Warrior", "阳德": "Yang Virtue", "司命": "Life Governor", "明堂": "Bright Hall", "天贼": "Heavenly Thief", "天喜": "Heavenly Joy",
+    "天医": "Heavenly Doctor", "天仓": "Heavenly Granary", "朱雀": "Vermilion Bird", "时阳": "Seasonal Yang", "金匮": "Golden Coffer", "普护": "Universal Protection",
+    "天马": "Heavenly Horse", "玉堂": "Jade Hall", "土府": "Earth Palace", "守日": "Guarding Day", "吉期": "Lucky Period", "天吏": "Heavenly Official",
+    "劫煞": "Robbery Sha", "归忌": "Return Taboo", "大时": "Major Time", "大败": "Great Defeat", "咸池": "Salty Pool", "月破": "Month Breaker",
+    "大耗": "Major Loss", "九空": "Nine Voids", "阴德": "Yin Virtue", "土符": "Earth Talisman", "灾煞": "Disaster Sha", "天火": "Heavenly Fire",
+    "月煞": "Monthly Sha", "九坎": "Nine Pits", "九焦": "Nine Scorches", "续世": "Continuing Generations", "血忌": "Blood Taboo", "福德": "Fortune Virtue",
+    "大煞": "Great Sha", "四击": "Four Strikes", "天刑": "Heavenly Punishment", "月刑": "Monthly Punishment", "宝光": "Precious Light", "月虚": "Monthly Emptiness",
+    "地火": "Earth Fire", "圣心": "Sage Heart", "益后": "Benefit Descendants", "河魁": "River Chief", "福生": "Fortune Birth", "天巫": "Heavenly Shaman",
+    "天德": "Heavenly Virtue", "天德合": "Heavenly Virtue Union", "触水龙": "Water-Touching Dragon", "四废": "Four Wastes", "地囊": "Earth Bag", "八风": "Eight Winds",
+    "五墓": "Five Tombs", "天赦": "Heavenly Pardon", "四穷": "Four Exhaustions", "四耗": "Four Losses", "四忌": "Four Taboos", "小会": "Minor Meeting",
+    "孤辰": "Lonely Star", "天愿": "Heavenly Wish", "阴错": "Yin Error", "六蛇": "Six Snakes", "岁薄": "Year Thin", "行狠": "Ruthless Conduct",
+    "三丧": "Three Mournings", "鬼哭": "Ghost Wailing", "逐阵": "Chasing Formation", "阳错": "Yang Error", "八龙": "Eight Dragons", "大会": "Major Meeting",
+    "九虎": "Nine Tigers", "阴位": "Yin Position", "了戾": "Ending Perversity", "七鸟": "Seven Birds", "天狗": "Heavenly Dog", "天符": "Heavenly Talisman",
+    "绝阳": "Extinct Yang", "纯阴": "Pure Yin", "大退": "Great Retreat", "无": "none", "阳破阴冲": "Yang Break Yin Clash", "三阴": "Three Yin",
+    "阴道冲阳": "Yin Path Clashes Yang", "单阴": "Single Yin", "阳错阴冲": "Yang Error Yin Clash", "七符": "Seven Talismans", "阴阳交破": "Yin Yang Mutual Break",
+}
+
+MONTH_NUM = {"正": 1, "一": 1, "二": 2, "三": 3, "四": 4, "五": 5, "六": 6, "七": 7, "八": 8, "九": 9, "十": 10, "冬": 11, "腊": 12}
+
+
+def lunar_date_en(lunar, month, day):
+    return f"{'Leap ' if lunar.startswith('闰') else ''}month {abs(month)}, day {day}"
+
+
+def ganzhi_en(gz):
+    return ", ".join(f"{STEMS[c] if c in STEMS else BRANCHES[c]}" for c in gz)
+
+
+def nine_star_en(s):
+    return " ".join(NINE_STAR[c] for c in s[:3] if c in NINE_STAR)
+
+
+def pinyin(s):
+    return " ".join(lazy_pinyin(s)).capitalize()
+
+
+def translations(extra_terms):
+    out = {**TERMS, **SOLAR_TERMS, **NAYIN, **LIUYAO, **STARS}
+    for k, v in MANSIONS.items():
+        out[k] = v
+    for t in extra_terms:
+        if t not in out:
+            out[t] = pinyin(t)
+    return out
