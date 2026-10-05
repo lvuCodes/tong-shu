@@ -4,6 +4,13 @@ node_modules
 package-lock.json
 playwright-report
 test-results
+public/data
+src/engine/fixtures
+AI-USAGE.md
+.ai-attribution
+docs
+pipeline
+local
 
 # Stylesheets are hand-formatted and linted by stylelint instead.
 **/*.css

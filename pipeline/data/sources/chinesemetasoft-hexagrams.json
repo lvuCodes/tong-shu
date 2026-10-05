@@ -1,0 +1,890 @@
+{
+ "甲午": [
+  {
+   "king_wen": 1,
+   "palace_order": 1,
+   "jia_zi_order": 31,
+   "gua": 9,
+   "star": 1,
+   "name_en": "Heaven",
+   "name_zh": "乾",
+   "luo_pan": 32,
+   "location": "S2",
+   "degrees": "174.375°-180.000°"
+  },
+  {
+   "king_wen": 44,
+   "palace_order": 33,
+   "jia_zi_order": 63,
+   "gua": 9,
+   "star": 8,
+   "name_en": "Meeting",
+   "name_zh": "姤",
+   "luo_pan": 33,
+   "location": "S2",
+   "degrees": "180.000°-185.625°"
+  }
+ ],
+ "甲子": [
+  {
+   "king_wen": 2,
+   "palace_order": 64,
+   "jia_zi_order": 1,
+   "gua": 1,
+   "star": 1,
+   "name_en": "Earth",
+   "name_zh": "坤",
+   "luo_pan": 64,
+   "location": "N2",
+   "degrees": "354.375°-360.000°"
+  },
+  {
+   "king_wen": 24,
+   "palace_order": 32,
+   "jia_zi_order": 61,
+   "gua": 1,
+   "star": 8,
+   "name_en": "Returning",
+   "name_zh": "復",
+   "luo_pan": 1,
+   "location": "N2",
+   "degrees": "0.000°-5.625°"
+  }
+ ],
+ "戊子": [
+  {
+   "king_wen": 3,
+   "palace_order": 30,
+   "jia_zi_order": 25,
+   "gua": 7,
+   "star": 4,
+   "name_en": "Beginning",
+   "name_zh": "屯",
+   "luo_pan": 3,
+   "location": "N3",
+   "degrees": "11.250°-16.875°"
+  }
+ ],
+ "庚申": [
+  {
+   "king_wen": 4,
+   "palace_order": 47,
+   "jia_zi_order": 64,
+   "gua": 6,
+   "star": 2,
+   "name_en": "Bliss",
+   "name_zh": "蒙",
+   "luo_pan": 47,
+   "location": "W1",
+   "degrees": "258.750°-264.375°"
+  },
+  {
+   "king_wen": 29,
+   "palace_order": 46,
+   "jia_zi_order": 57,
+   "gua": 7,
+   "star": 1,
+   "name_en": "Water",
+   "name_zh": "坎",
+   "luo_pan": 46,
+   "location": "W1",
+   "degrees": "253.125°-258.750°"
+  }
+ ],
+ "乙巳": [
+  {
+   "king_wen": 5,
+   "palace_order": 6,
+   "jia_zi_order": 42,
+   "gua": 7,
+   "star": 3,
+   "name_en": "Waiting",
+   "name_zh": "需",
+   "luo_pan": 27,
+   "location": "SE3",
+   "degrees": "146.250°-151.875°"
+  }
+ ],
+ "辛未": [
+  {
+   "king_wen": 6,
+   "palace_order": 41,
+   "jia_zi_order": 8,
+   "gua": 9,
+   "star": 3,
+   "name_en": "Litigation",
+   "name_zh": "訟",
+   "luo_pan": 41,
+   "location": "SW2",
+   "degrees": "225.000°-230.625°"
+  }
+ ],
+ "壬申": [
+  {
+   "king_wen": 7,
+   "palace_order": 48,
+   "jia_zi_order": 9,
+   "gua": 1,
+   "star": 7,
+   "name_en": "Officer",
+   "name_zh": "師",
+   "luo_pan": 48,
+   "location": "W2",
+   "degrees": "264.375°-270.000°"
+  }
+ ],
+ "辛亥": [
+  {
+   "king_wen": 8,
+   "palace_order": 62,
+   "jia_zi_order": 48,
+   "gua": 7,
+   "star": 7,
+   "name_en": "Alliance",
+   "name_zh": "比",
+   "luo_pan": 62,
+   "location": "N1",
+   "degrees": "343.125°-348.750°"
+  }
+ ],
+ "丁巳": [
+  {
+   "king_wen": 9,
+   "palace_order": 5,
+   "jia_zi_order": 54,
+   "gua": 2,
+   "star": 8,
+   "name_en": "Small Livestock",
+   "name_zh": "小畜",
+   "luo_pan": 28,
+   "location": "SE3",
+   "degrees": "151.875°-157.500°"
+  }
+ ],
+ "戊辰": [
+  {
+   "king_wen": 10,
+   "palace_order": 9,
+   "jia_zi_order": 5,
+   "gua": 9,
+   "star": 6,
+   "name_en": "Tread",
+   "name_zh": "履",
+   "luo_pan": 24,
+   "location": "SE2",
+   "degrees": "129.375°-135.000°"
+  }
+ ],
+ "庚辰": [
+  {
+   "king_wen": 11,
+   "palace_order": 8,
+   "jia_zi_order": 17,
+   "gua": 1,
+   "star": 9,
+   "name_en": "Unity",
+   "name_zh": "泰",
+   "luo_pan": 25,
+   "location": "SE2",
+   "degrees": "135.000°-140.625°"
+  }
+ ],
+ "庚戌": [
+  {
+   "king_wen": 12,
+   "palace_order": 57,
+   "jia_zi_order": 47,
+   "gua": 9,
+   "star": 9,
+   "name_en": "Stagnation",
+   "name_zh": "否",
+   "luo_pan": 57,
+   "location": "NW2",
+   "degrees": "315.000°-320.625°"
+  }
+ ],
+ "壬寅": [
+  {
+   "king_wen": 13,
+   "palace_order": 17,
+   "jia_zi_order": 39,
+   "gua": 9,
+   "star": 7,
+   "name_en": "Fellowship",
+   "name_zh": "同人",
+   "luo_pan": 16,
+   "location": "E2",
+   "degrees": "84.375°-90.000°"
+  }
+ ],
+ "辛巳": [
+  {
+   "king_wen": 14,
+   "palace_order": 3,
+   "jia_zi_order": 18,
+   "gua": 3,
+   "star": 7,
+   "name_en": "Great Reward",
+   "name_zh": "大有",
+   "luo_pan": 30,
+   "location": "S1",
+   "degrees": "163.125°-168.750°"
+  }
+ ],
+ "戊戌": [
+  {
+   "king_wen": 15,
+   "palace_order": 56,
+   "jia_zi_order": 35,
+   "gua": 1,
+   "star": 6,
+   "name_en": "Humility",
+   "name_zh": "謙",
+   "luo_pan": 56,
+   "location": "NW2",
+   "degrees": "309.375°-315.000°"
+  }
+ ],
+ "丁亥": [
+  {
+   "king_wen": 16,
+   "palace_order": 60,
+   "jia_zi_order": 24,
+   "gua": 8,
+   "star": 8,
+   "name_en": "Delight",
+   "name_zh": "豫",
+   "luo_pan": 60,
+   "location": "NW3",
+   "degrees": "331.875°-337.500°"
+  }
+ ],
+ "丁丑": [
+  {
+   "king_wen": 17,
+   "palace_order": 26,
+   "jia_zi_order": 14,
+   "gua": 4,
+   "star": 7,
+   "name_en": "Following",
+   "name_zh": "隨",
+   "luo_pan": 7,
+   "location": "NE1",
+   "degrees": "33.750°-39.375°"
+  }
+ ],
+ "丁未": [
+  {
+   "king_wen": 18,
+   "palace_order": 39,
+   "jia_zi_order": 44,
+   "gua": 6,
+   "star": 7,
+   "name_en": "Poison",
+   "name_zh": "蠱",
+   "luo_pan": 39,
+   "location": "SW1",
+   "degrees": "213.750°-219.375°"
+  }
+ ],
+ "乙卯": [
+  {
+   "king_wen": 19,
+   "palace_order": 16,
+   "jia_zi_order": 52,
+   "gua": 1,
+   "star": 4,
+   "name_en": "Arriving",
+   "name_zh": "臨",
+   "luo_pan": 17,
+   "location": "E2",
+   "degrees": "90.000°-95.625°"
+  }
+ ],
+ "己亥": [
+  {
+   "king_wen": 20,
+   "palace_order": 61,
+   "jia_zi_order": 36,
+   "gua": 2,
+   "star": 2,
+   "name_en": "Observation",
+   "name_zh": "觀",
+   "luo_pan": 61,
+   "location": "N1",
+   "degrees": "337.500°-343.125°"
+  }
+ ],
+ "乙丑": [
+  {
+   "king_wen": 21,
+   "palace_order": 27,
+   "jia_zi_order": 2,
+   "gua": 3,
+   "star": 6,
+   "name_en": "Biting",
+   "name_zh": "噬嗑",
+   "luo_pan": 6,
+   "location": "NE1",
+   "degrees": "28.125°-33.750°"
+  }
+ ],
+ "癸丑": [
+  {
+   "king_wen": 22,
+   "palace_order": 23,
+   "jia_zi_order": 50,
+   "gua": 6,
+   "star": 8,
+   "name_en": "Beauty",
+   "name_zh": "賁",
+   "luo_pan": 10,
+   "location": "NE3",
+   "degrees": "50.625°-56.250°"
+  }
+ ],
+ "癸亥": [
+  {
+   "king_wen": 23,
+   "palace_order": 63,
+   "jia_zi_order": 60,
+   "gua": 6,
+   "star": 6,
+   "name_en": "Peel",
+   "name_zh": "剝",
+   "luo_pan": 63,
+   "location": "N1",
+   "degrees": "348.750°-354.375°"
+  }
+ ],
+ "己丑": [
+  {
+   "king_wen": 25,
+   "palace_order": 25,
+   "jia_zi_order": 26,
+   "gua": 9,
+   "star": 2,
+   "name_en": "Without Wrongdoing",
+   "name_zh": "無妄",
+   "luo_pan": 8,
+   "location": "NE2",
+   "degrees": "39.375°-45.000°"
+  }
+ ],
+ "壬辰": [
+  {
+   "king_wen": 26,
+   "palace_order": 7,
+   "jia_zi_order": 29,
+   "gua": 6,
+   "star": 4,
+   "name_en": "Big Livestock",
+   "name_zh": "大畜",
+   "luo_pan": 26,
+   "location": "SE3",
+   "degrees": "140.625°-146.250°"
+  }
+ ],
+ "丙子": [
+  {
+   "king_wen": 27,
+   "palace_order": 31,
+   "jia_zi_order": 13,
+   "gua": 6,
+   "star": 3,
+   "name_en": "Nourish",
+   "name_zh": "頤",
+   "luo_pan": 2,
+   "location": "N3",
+   "degrees": "5.625°-11.250°"
+  }
+ ],
+ "丙午": [
+  {
+   "king_wen": 28,
+   "palace_order": 34,
+   "jia_zi_order": 43,
+   "gua": 4,
+   "star": 3,
+   "name_en": "Great Exceeding",
+   "name_zh": "大過",
+   "luo_pan": 34,
+   "location": "S3",
+   "degrees": "185.625°-191.250°"
+  }
+ ],
+ "庚寅": [
+  {
+   "king_wen": 30,
+   "palace_order": 19,
+   "jia_zi_order": 27,
+   "gua": 3,
+   "star": 1,
+   "name_en": "Fire",
+   "name_zh": "離",
+   "luo_pan": 14,
+   "location": "E1",
+   "degrees": "73.125°-78.750°"
+  },
+  {
+   "king_wen": 49,
+   "palace_order": 18,
+   "jia_zi_order": 62,
+   "gua": 4,
+   "star": 2,
+   "name_en": "Reform",
+   "name_zh": "革",
+   "luo_pan": 15,
+   "location": "E1",
+   "degrees": "78.750°-84.375°"
+  }
+ ],
+ "丁酉": [
+  {
+   "king_wen": 31,
+   "palace_order": 50,
+   "jia_zi_order": 34,
+   "gua": 4,
+   "star": 9,
+   "name_en": "Influence",
+   "name_zh": "咸",
+   "luo_pan": 50,
+   "location": "W3",
+   "degrees": "275.625°-281.250°"
+  }
+ ],
+ "庚午": [
+  {
+   "king_wen": 32,
+   "palace_order": 36,
+   "jia_zi_order": 7,
+   "gua": 8,
+   "star": 9,
+   "name_en": "Consistency",
+   "name_zh": "恆",
+   "luo_pan": 36,
+   "location": "S3",
+   "degrees": "196.875°-202.500°"
+  }
+ ],
+ "乙酉": [
+  {
+   "king_wen": 33,
+   "palace_order": 49,
+   "jia_zi_order": 22,
+   "gua": 9,
+   "star": 4,
+   "name_en": "Retreat",
+   "name_zh": "遯",
+   "luo_pan": 49,
+   "location": "W2",
+   "degrees": "270.000°-275.625°"
+  }
+ ],
+ "己巳": [
+  {
+   "king_wen": 34,
+   "palace_order": 4,
+   "jia_zi_order": 6,
+   "gua": 8,
+   "star": 2,
+   "name_en": "Great Strength",
+   "name_zh": "大壯",
+   "luo_pan": 29,
+   "location": "S1",
+   "degrees": "157.500°-163.125°"
+  }
+ ],
+ "乙亥": [
+  {
+   "king_wen": 35,
+   "palace_order": 59,
+   "jia_zi_order": 12,
+   "gua": 3,
+   "star": 3,
+   "name_en": "Advancement",
+   "name_zh": "晉",
+   "luo_pan": 59,
+   "location": "NW3",
+   "degrees": "326.250°-331.875°"
+  }
+ ],
+ "辛丑": [
+  {
+   "king_wen": 36,
+   "palace_order": 24,
+   "jia_zi_order": 38,
+   "gua": 1,
+   "star": 3,
+   "name_en": "Dimming Light",
+   "name_zh": "明夷",
+   "luo_pan": 9,
+   "location": "NE2",
+   "degrees": "45.000°-50.625°"
+  }
+ ],
+ "丙寅": [
+  {
+   "king_wen": 37,
+   "palace_order": 21,
+   "jia_zi_order": 3,
+   "gua": 2,
+   "star": 4,
+   "name_en": "Family",
+   "name_zh": "家人",
+   "luo_pan": 12,
+   "location": "NE3",
+   "degrees": "61.875°-67.500°"
+  }
+ ],
+ "甲辰": [
+  {
+   "king_wen": 38,
+   "palace_order": 11,
+   "jia_zi_order": 41,
+   "gua": 3,
+   "star": 2,
+   "name_en": "Opposition",
+   "name_zh": "睽",
+   "luo_pan": 22,
+   "location": "SE1",
+   "degrees": "118.125°-123.750°"
+  }
+ ],
+ "甲戌": [
+  {
+   "king_wen": 39,
+   "palace_order": 54,
+   "jia_zi_order": 11,
+   "gua": 7,
+   "star": 2,
+   "name_en": "Obstruction",
+   "name_zh": "蹇",
+   "luo_pan": 54,
+   "location": "NW1",
+   "degrees": "298.125°-303.750°"
+  }
+ ],
+ "丙申": [
+  {
+   "king_wen": 40,
+   "palace_order": 44,
+   "jia_zi_order": 33,
+   "gua": 8,
+   "star": 4,
+   "name_en": "Relief",
+   "name_zh": "解",
+   "luo_pan": 44,
+   "location": "SW3",
+   "degrees": "241.875°-247.500°"
+  }
+ ],
+ "丁卯": [
+  {
+   "king_wen": 41,
+   "palace_order": 15,
+   "jia_zi_order": 4,
+   "gua": 6,
+   "star": 9,
+   "name_en": "Decreasing",
+   "name_zh": "損",
+   "luo_pan": 18,
+   "location": "E3",
+   "degrees": "95.625°-101.250°"
+  }
+ ],
+ "庚子": [
+  {
+   "king_wen": 42,
+   "palace_order": 29,
+   "jia_zi_order": 37,
+   "gua": 2,
+   "star": 9,
+   "name_en": "Increasing",
+   "name_zh": "益",
+   "luo_pan": 4,
+   "location": "N3",
+   "degrees": "16.875°-22.500°"
+  }
+ ],
+ "癸巳": [
+  {
+   "king_wen": 43,
+   "palace_order": 2,
+   "jia_zi_order": 30,
+   "gua": 4,
+   "star": 6,
+   "name_en": "Eliminating",
+   "name_zh": "夬",
+   "luo_pan": 31,
+   "location": "S1",
+   "degrees": "168.750°-174.375°"
+  }
+ ],
+ "壬戌": [
+  {
+   "king_wen": 45,
+   "palace_order": 58,
+   "jia_zi_order": 59,
+   "gua": 4,
+   "star": 4,
+   "name_en": "Gathering",
+   "name_zh": "萃",
+   "luo_pan": 58,
+   "location": "NW3",
+   "degrees": "320.625°-326.250°"
+  }
+ ],
+ "己未": [
+  {
+   "king_wen": 46,
+   "palace_order": 40,
+   "jia_zi_order": 56,
+   "gua": 1,
+   "star": 2,
+   "name_en": "Rising",
+   "name_zh": "升",
+   "luo_pan": 40,
+   "location": "SW2",
+   "degrees": "219.375°-225.000°"
+  }
+ ],
+ "癸未": [
+  {
+   "king_wen": 47,
+   "palace_order": 42,
+   "jia_zi_order": 20,
+   "gua": 4,
+   "star": 8,
+   "name_en": "Trap",
+   "name_zh": "困",
+   "luo_pan": 42,
+   "location": "SW3",
+   "degrees": "230.625°-236.250°"
+  }
+ ],
+ "乙未": [
+  {
+   "king_wen": 48,
+   "palace_order": 38,
+   "jia_zi_order": 32,
+   "gua": 7,
+   "star": 6,
+   "name_en": "Well",
+   "name_zh": "井",
+   "luo_pan": 38,
+   "location": "SW1",
+   "degrees": "208.125°-213.750°"
+  }
+ ],
+ "戊午": [
+  {
+   "king_wen": 50,
+   "palace_order": 35,
+   "jia_zi_order": 55,
+   "gua": 3,
+   "star": 4,
+   "name_en": "The Cauldron",
+   "name_zh": "鼎",
+   "luo_pan": 35,
+   "location": "S3",
+   "degrees": "191.250°-196.875°"
+  }
+ ],
+ "壬子": [
+  {
+   "king_wen": 51,
+   "palace_order": 28,
+   "jia_zi_order": 49,
+   "gua": 8,
+   "star": 1,
+   "name_en": "Thunder",
+   "name_zh": "震",
+   "luo_pan": 5,
+   "location": "NE1",
+   "degrees": "22.500°-28.125°"
+  }
+ ],
+ "丙戌": [
+  {
+   "king_wen": 52,
+   "palace_order": 55,
+   "jia_zi_order": 23,
+   "gua": 6,
+   "star": 1,
+   "name_en": "Mountain",
+   "name_zh": "艮",
+   "luo_pan": 55,
+   "location": "NW1",
+   "degrees": "303.750°-309.375°"
+  }
+ ],
+ "癸酉": [
+  {
+   "king_wen": 53,
+   "palace_order": 53,
+   "jia_zi_order": 10,
+   "gua": 2,
+   "star": 7,
+   "name_en": "Gradual Progress",
+   "name_zh": "漸",
+   "luo_pan": 53,
+   "location": "NW1",
+   "degrees": "292.500°-298.125°"
+  }
+ ],
+ "癸卯": [
+  {
+   "king_wen": 54,
+   "palace_order": 12,
+   "jia_zi_order": 40,
+   "gua": 8,
+   "star": 7,
+   "name_en": "Marrying Maiden",
+   "name_zh": "歸妹",
+   "luo_pan": 21,
+   "location": "SE1",
+   "degrees": "112.500°-118.125°"
+  }
+ ],
+ "戊寅": [
+  {
+   "king_wen": 55,
+   "palace_order": 20,
+   "jia_zi_order": 15,
+   "gua": 8,
+   "star": 6,
+   "name_en": "Abundance",
+   "name_zh": "豐",
+   "luo_pan": 13,
+   "location": "E1",
+   "degrees": "67.500°-73.125°"
+  }
+ ],
+ "己酉": [
+  {
+   "king_wen": 56,
+   "palace_order": 51,
+   "jia_zi_order": 46,
+   "gua": 3,
+   "star": 8,
+   "name_en": "Travelling",
+   "name_zh": "旅",
+   "luo_pan": 51,
+   "location": "W3",
+   "degrees": "281.250°-286.875°"
+  }
+ ],
+ "壬午": [
+  {
+   "king_wen": 57,
+   "palace_order": 37,
+   "jia_zi_order": 19,
+   "gua": 2,
+   "star": 1,
+   "name_en": "Wind",
+   "name_zh": "巽",
+   "luo_pan": 37,
+   "location": "SW1",
+   "degrees": "202.500°-208.125°"
+  }
+ ],
+ "丙辰": [
+  {
+   "king_wen": 58,
+   "palace_order": 10,
+   "jia_zi_order": 53,
+   "gua": 4,
+   "star": 1,
+   "name_en": "Marsh",
+   "name_zh": "兌",
+   "luo_pan": 23,
+   "location": "SE1",
+   "degrees": "123.750°-129.375°"
+  }
+ ],
+ "戊申": [
+  {
+   "king_wen": 59,
+   "palace_order": 45,
+   "jia_zi_order": 45,
+   "gua": 2,
+   "star": 6,
+   "name_en": "Dispersing",
+   "name_zh": "渙",
+   "luo_pan": 45,
+   "location": "W1",
+   "degrees": "247.500°-253.125°"
+  }
+ ],
+ "己卯": [
+  {
+   "king_wen": 60,
+   "palace_order": 14,
+   "jia_zi_order": 16,
+   "gua": 7,
+   "star": 8,
+   "name_en": "Regulate",
+   "name_zh": "節",
+   "luo_pan": 19,
+   "location": "E3",
+   "degrees": "101.250°-106.875°"
+  }
+ ],
+ "辛卯": [
+  {
+   "king_wen": 61,
+   "palace_order": 13,
+   "jia_zi_order": 28,
+   "gua": 2,
+   "star": 3,
+   "name_en": "Sincerity",
+   "name_zh": "中孚",
+   "luo_pan": 20,
+   "location": "E3",
+   "degrees": "106.875°-112.500°"
+  }
+ ],
+ "辛酉": [
+  {
+   "king_wen": 62,
+   "palace_order": 52,
+   "jia_zi_order": 58,
+   "gua": 8,
+   "star": 3,
+   "name_en": "Lesser Exceeding",
+   "name_zh": "小過",
+   "luo_pan": 52,
+   "location": "W3",
+   "degrees": "286.875°-292.500°"
+  }
+ ],
+ "甲寅": [
+  {
+   "king_wen": 63,
+   "palace_order": 22,
+   "jia_zi_order": 51,
+   "gua": 7,
+   "star": 9,
+   "name_en": "Accomplished",
+   "name_zh": "既濟",
+   "luo_pan": 11,
+   "location": "NE3",
+   "degrees": "56.250°-61.875°"
+  }
+ ],
+ "甲申": [
+  {
+   "king_wen": 64,
+   "palace_order": 43,
+   "jia_zi_order": 21,
+   "gua": 3,
+   "star": 9,
+   "name_en": "Not Yet Accomplished",
+   "name_zh": "未濟",
+   "luo_pan": 43,
+   "location": "SW3",
+   "degrees": "236.250°-241.875°"
+  }
+ ]
+}

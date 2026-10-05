@@ -1,0 +1,31 @@
+{
+  "baselineCommit": "a09c643ddc5cf3b67a8882811214a93b5f027e96",
+  "baselineDate": "2026-10-02",
+  "report": "AI-USAGE.md",
+  "perFile": false,
+  "exclude": [
+    "package-lock.json",
+    "pnpm-lock.yaml",
+    "yarn.lock",
+    "dist/**",
+    "build/**",
+    "vendor/**",
+    "**/*.min.*",
+    "AI-USAGE.md",
+    ".ai-attribution/**",
+    "public/data/**",
+    "src/engine/fixtures/**",
+    "local/**",
+    "pipeline/data/**"
+  ],
+  "prose": {
+    "paths": [],
+    "retainSnapshots": true,
+    "publish": {
+      "mode": "none",
+      "showWhenNone": true,
+      "outDir": "public/data/ai-attribution",
+      "maxDiffBytes": 65536
+    }
+  }
+}

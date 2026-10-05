@@ -28,3 +28,12 @@ coverage
 *.sw?
 playwright-report
 test-results
+
+.ai-attribution/snapshots/.tmp/
+
+# Personal birth data, generated personal reports, saved third-party pages and HAR captures with session tokens. Never committed.
+local/
+
+pipeline/.venv/
+pipeline/data/raw/
+__pycache__/
