@@ -22,7 +22,7 @@
     "smoke": "playwright test"
   },
   "dependencies": {
-    "@lvucodes/ui": "^0.1.0",
+    "@lvucodes/ui": "^0.1.2",
     "lunar-javascript": "1.7.7",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"

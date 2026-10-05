@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { applyTheme, isThemeId, type ThemeId } from "@lvucodes/ui";
 
 export const SITE_THEME_KEY = "tong-shu:theme";
-export const SITE_DEFAULT_THEME: ThemeId = "basic";
+export const SITE_DEFAULT_THEME: ThemeId = "lvucodes";
 
 export function loadSiteTheme(): ThemeId {
   try {
