@@ -36,10 +36,10 @@ describe("App", () => {
     expect(back.getAttribute("href")).toBe(BACK_LINK_DEFAULT_HREF);
   });
 
-  it("defaults this page to the Basic theme", () => {
+  it("defaults this page to the lvuCodes theme", () => {
     localStorage.removeItem("tong-shu:theme");
     render(<App />);
-    expect(document.documentElement.dataset.theme).toBe("basic");
+    expect(document.documentElement.dataset.theme).toBe("lvucodes");
   });
 
   it("applies the theme picked from the switcher to the document element", async () => {

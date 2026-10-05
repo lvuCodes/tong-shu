@@ -126,6 +126,20 @@ export const attributableAdded = (entries, { root, baseline, exclude = [], isAnc
   return added;
 };
 
+export const coAuthoredAdded = (root, baseline, exclude = [], run = (args) => git(root, args)) =>
+  parseNumstat(
+    run([
+      "log",
+      "--numstat",
+      "--no-renames",
+      "--format=",
+      "-i",
+      "--grep=^Co-Authored-By: Claude",
+      `${baseline}..HEAD`,
+    ]),
+    exclude,
+  );
+
 export const percent = (part, whole) => (whole > 0 ? Math.round((part / whole) * 1000) / 10 : 0);
 
 const TIMESTAMP = "_Generated ";
@@ -160,7 +174,7 @@ Baseline commit \`${config.baselineCommit.slice(0, 7)}\` (${config.baselineDate}
 
 - The figures count **lines added since the baseline commit**, not lines currently surviving in the working tree. A line written once and rewritten twice is counted three times.
 - Everything committed **before the baseline** is unattributed and appears in no column. Authorship there cannot be honestly reconstructed, so it is not guessed at.
-- The ledger records only edits made through **Claude Code's own editing tools**. Anything typed by hand, produced by editor autocomplete, or written by another assistant counts as the author's.
+- Claude's lines are the larger of two counts: edits the ledger recorded through **Claude Code's own editing tools**, and every line added by a commit carrying a \`Co-Authored-By: Claude\` trailer. Anything else counts as the author's.
 - A line count is **not a claim about authorship of design or direction**. What to build, which generated output to keep, and what to reject are the author's, and none of it appears in a diff.
 - Figures are computed from \`.ai-attribution/ledger.jsonl\` — an append-only record written as each edit lands — joined against \`git log --numstat\`. The ledger is committed as the evidence behind this report.
 
@@ -200,7 +214,10 @@ export const generate = (root = ROOT) => {
     exclude,
   );
   const untracked = untrackedAdded(root, exclude);
-  const aiAdded = attributableAdded(readLedger(root), { root, baseline, exclude });
+  const aiAdded = Math.max(
+    attributableAdded(readLedger(root), { root, baseline, exclude }),
+    coAuthoredAdded(root, baseline, exclude),
+  );
   return {
     config,
     text: buildReport({
