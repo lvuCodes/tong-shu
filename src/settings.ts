@@ -40,6 +40,7 @@ export function narrowHiddenCols(labels: string[]): string[] {
   return [
     ...STATIC_COLS.filter((k) => !NARROW_SHOWN.includes(k)),
     ...labels.map((l) => `person-${l}`),
+    "taboos",
   ];
 }
 

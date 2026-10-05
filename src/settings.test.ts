@@ -75,6 +75,7 @@ describe("narrow screens", () => {
       .map((c) => c.key)
       .filter((k) => !s.hiddenCols.includes(k));
     expect(shown).toEqual(["date", "overall", "adjusted"]);
+    expect(s.hiddenCols).toContain("taboos");
   });
 
   it("keeps the wide defaults above the breakpoint", () => {

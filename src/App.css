@@ -1086,8 +1086,16 @@ tr.pick td {
 }
 
 @media (max-width: 640px) {
-  .info table td {
+  .info table th,
+  .info table td,
+  table.tiertable td {
+    white-space: normal;
     overflow-wrap: anywhere;
+  }
+
+  .info table .badge,
+  table.tiertable .badge {
+    white-space: normal;
   }
 
   table {
