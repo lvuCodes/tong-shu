@@ -17,14 +17,14 @@ export function SortableTable({
   const [sort, setSort] = useState<Sort>(null);
   if (!days.length) return <p className="empty">No dates.</p>;
   return (
-    <table aria-label={label}>
+    <table className="tiertable" aria-label={label}>
       <thead>
         <tr>
           {cols.map((c) =>
             c.sort ? (
               <th
                 key={c.key}
-                className="coltip"
+                className={`coltip col-${c.key}`}
                 data-tip={c.desc}
                 aria-sort={sort?.key === c.key ? sort.dir : "none"}
               >
@@ -37,7 +37,7 @@ export function SortableTable({
                 </button>
               </th>
             ) : (
-              <th key={c.key} className="coltip" data-tip={c.desc}>
+              <th key={c.key} className={`coltip col-${c.key}`} data-tip={c.desc}>
                 {c.label}
               </th>
             ),
@@ -48,7 +48,7 @@ export function SortableTable({
         {sortRows(days, cols, sort).map((d) => (
           <tr key={d.date}>
             {cols.map((c) => (
-              <td key={c.key} className={c.className}>
+              <td key={c.key} className={`col-${c.key} ${c.className ?? ""}`}>
                 {c.cell(d)}
               </td>
             ))}

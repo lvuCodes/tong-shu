@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
+import { weddingColumns } from "./components/columns";
 import {
   countryOf,
+  NARROW_SCREEN,
+  STATIC_COLS,
   DEFAULT_HIDDEN_COLS,
   defaultSettings,
   loadSettings,
@@ -62,5 +65,24 @@ describe("persistence", () => {
     saveSettings(s);
     expect(JSON.parse(localStorage.getItem(STORAGE_KEY)!).year).toBe("2028");
     expect(loadSettings().year).toBe("2028");
+  });
+});
+
+describe("narrow screens", () => {
+  it("starts with only the date, overall and adjusted columns", () => {
+    const s = defaultSettings(null, TODAY, 375);
+    const shown = weddingColumns(["Partner A", "Partner B"], "X", () => {})
+      .map((c) => c.key)
+      .filter((k) => !s.hiddenCols.includes(k));
+    expect(shown).toEqual(["date", "overall", "adjusted"]);
+  });
+
+  it("keeps the wide defaults above the breakpoint", () => {
+    expect(defaultSettings(null, TODAY, NARROW_SCREEN + 1).hiddenCols).toEqual(DEFAULT_HIDDEN_COLS);
+  });
+
+  it("lists every fixed column key", () => {
+    const keys = weddingColumns([], "X", () => {}).map((c) => c.key);
+    expect([...keys].sort()).toEqual([...STATIC_COLS].sort());
   });
 });

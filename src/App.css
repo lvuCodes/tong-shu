@@ -1086,6 +1086,10 @@ tr.pick td {
 }
 
 @media (max-width: 640px) {
+  .info table td {
+    overflow-wrap: anywhere;
+  }
+
   table {
     font-size: 12px;
   }

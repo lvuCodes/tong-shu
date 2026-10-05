@@ -16,6 +16,33 @@ export interface Settings {
 
 export const STORAGE_KEY = "tong-shu:v2";
 
+export const NARROW_SCREEN = 768;
+
+export const STATIC_COLS = [
+  "date",
+  "day",
+  "hours",
+  "lunar",
+  "pillar",
+  "officer",
+  "god",
+  "overall",
+  "clash",
+  "donggong",
+  "flags",
+  "adjusted",
+  "sources",
+];
+
+const NARROW_SHOWN = ["date", "overall", "adjusted"];
+
+export function narrowHiddenCols(labels: string[]): string[] {
+  return [
+    ...STATIC_COLS.filter((k) => !NARROW_SHOWN.includes(k)),
+    ...labels.map((l) => `person-${l}`),
+  ];
+}
+
 export const DEFAULT_HIDDEN_COLS = ["lunar", "officer", "god", "clash", "hours", "sources"];
 
 interface CouplePerson {
@@ -88,6 +115,7 @@ function fromCouple(p: CouplePerson): BirthInput {
 export function defaultSettings(
   local: LocalDefaults | null = localDefaults as LocalDefaults | null,
   today = new Date(),
+  width = typeof window === "undefined" ? Infinity : window.innerWidth,
 ): Settings {
   const people = local?.couple
     ? Object.values(local.couple.people).map(fromCouple)
@@ -110,7 +138,8 @@ export function defaultSettings(
       ? `${today.getFullYear() + 2}-12`
       : monthOf(new Date(today.getFullYear(), today.getMonth() + 11, 1)),
     year: "all",
-    hiddenCols: DEFAULT_HIDDEN_COLS,
+    hiddenCols:
+      width <= NARROW_SCREEN ? narrowHiddenCols(people.map((p) => p.label)) : DEFAULT_HIDDEN_COLS,
   };
 }
 
