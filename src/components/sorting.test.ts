@@ -17,6 +17,13 @@ describe("sorting", () => {
     expect(nextSort(desc, "date")).toBeNull();
   });
 
+  it("starts from the column's first direction", () => {
+    const desc = nextSort(null, "score", "descending");
+    expect(desc).toEqual({ key: "score", dir: "descending" });
+    expect(nextSort(desc, "score", "descending")).toEqual({ key: "score", dir: "ascending" });
+    expect(nextSort({ key: "score", dir: "ascending" }, "score", "descending")).toBeNull();
+  });
+
   it("orders rows both ways and restores the default", () => {
     expect(sortRows(days, cols, { key: "date", dir: "ascending" }).map((d) => d.date)).toEqual([
       "2027-01-01",

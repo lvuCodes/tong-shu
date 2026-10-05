@@ -1,6 +1,13 @@
 // Tong Shu. Copyright (C) 2026 lvuCodes. Licensed under GPL-3.0-or-later; see LICENSE.
 
-import { calendarYears, MAX_CALENDAR_YEARS, monthLabel, monthOf, pastMonths } from "./format";
+import {
+  calendarYears,
+  MAX_CALENDAR_YEARS,
+  monthLabel,
+  monthOf,
+  nextMonth,
+  pastMonths,
+} from "./format";
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -58,7 +65,12 @@ export function RangePicker({ start, end, onChange, today = new Date() }: Props)
   const span = calendarYears(start, end);
   return (
     <div className="range" role="group" aria-label="Date range">
-      <MonthYear label="Start" value={start} years={years} onChange={(v) => onChange(v, end)} />
+      <MonthYear
+        label="Start"
+        value={start}
+        years={years}
+        onChange={(v) => onChange(v, nextMonth(v))}
+      />
       <MonthYear label="End" value={end} years={years} onChange={(v) => onChange(start, v)} />
       {past.length ? (
         <p className="rangenote" role="status">

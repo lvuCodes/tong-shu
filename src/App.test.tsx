@@ -69,12 +69,20 @@ describe("App", () => {
     ).toBeGreaterThan(0);
   });
 
-  it("narrows the shown dates with the range pickers and swaps a reversed range", async () => {
+  it("swaps a reversed range", async () => {
     render(<App />);
     await screen.findAllByRole("button", { name: DATE });
-    fireEvent.change(screen.getByLabelText("Start month"), { target: { value: "07" } });
-    expect((screen.getByLabelText("Start month") as HTMLSelectElement).value).toBe("06");
-    expect((screen.getByLabelText("End month") as HTMLSelectElement).value).toBe("07");
+    fireEvent.change(screen.getByLabelText("End month"), { target: { value: "04" } });
+    expect((screen.getByLabelText("Start month") as HTMLSelectElement).value).toBe("04");
+    expect((screen.getByLabelText("End month") as HTMLSelectElement).value).toBe("05");
+  });
+
+  it("sets the end month to the month after a new start", async () => {
+    render(<App />);
+    await screen.findAllByRole("button", { name: DATE });
+    fireEvent.change(screen.getByLabelText("Start month"), { target: { value: "12" } });
+    expect((screen.getByLabelText("End month") as HTMLSelectElement).value).toBe("01");
+    expect((screen.getByLabelText("End year") as HTMLSelectElement).value).toBe("2028");
   });
 
   it("extends the range from the end year dropdown", async () => {
@@ -123,11 +131,11 @@ describe("App", () => {
         .map((r) => Number(r.querySelectorAll("td")[1].textContent));
     const sorter = within(table).getByRole("button", { name: "Count" });
     await userEvent.click(sorter);
-    expect(counts()).toEqual([...counts()].sort((a, b) => a - b));
-    await userEvent.click(sorter);
     expect(counts()).toEqual([...counts()].sort((a, b) => b - a));
+    await userEvent.click(sorter);
+    expect(counts()).toEqual([...counts()].sort((a, b) => a - b));
     expect(within(table).getAllByRole("columnheader")[1].getAttribute("aria-sort")).toBe(
-      "descending",
+      "ascending",
     );
   });
 
@@ -172,12 +180,49 @@ describe("App", () => {
     await screen.findAllByRole("button", { name: DATE });
     const [label] = screen.getAllByLabelText("Label");
     fireEvent.change(label, { target: { value: "Private" } });
+    fireEvent.blur(label);
     vi.spyOn(window, "confirm").mockReturnValueOnce(false).mockReturnValueOnce(true);
     await userEvent.click(screen.getByRole("button", { name: "Clear all data" }));
     expect(screen.getByDisplayValue("Private")).toBeTruthy();
     await userEvent.click(screen.getByRole("button", { name: "Clear all data" }));
     expect(screen.queryByDisplayValue("Private")).toBeNull();
     expect(screen.getByDisplayValue("Partner A")).toBeTruthy();
+  });
+
+  it("clears the event details and one person to their defaults", async () => {
+    render(<App />);
+    await screen.findAllByRole("button", { name: DATE });
+    const [first, second] = screen.getAllByLabelText("Label");
+    fireEvent.change(first, { target: { value: "Ana" } });
+    fireEvent.blur(first);
+    fireEvent.change(second, { target: { value: "Ben" } });
+    fireEvent.blur(second);
+    fireEvent.change(screen.getByLabelText("End month"), { target: { value: "07" } });
+    await userEvent.click(screen.getByRole("button", { name: "Clear Ana" }));
+    expect(screen.getByDisplayValue("Partner A")).toBeTruthy();
+    expect(screen.getByDisplayValue("Ben")).toBeTruthy();
+    await userEvent.click(screen.getByRole("button", { name: "Clear Event details" }));
+    const { start } = defaultSettings(null);
+    expect((screen.getByLabelText("Start year") as HTMLSelectElement).value).toBe(
+      start.slice(0, 4),
+    );
+    expect((screen.getByLabelText("Start month") as HTMLSelectElement).value).toBe(start.slice(5));
+    expect(screen.getByDisplayValue("Ben")).toBeTruthy();
+  });
+
+  it("sets the birth end time an hour after the start", async () => {
+    render(<App />);
+    await screen.findAllByRole("button", { name: DATE });
+    await userEvent.click(screen.getAllByLabelText("Birth time is a range")[0]);
+    const [start] = screen.getAllByLabelText("Start", { selector: "input" });
+    expect(
+      (screen.getAllByLabelText("End", { selector: "input" })[0] as HTMLInputElement).value,
+    ).toBe("10:30");
+    fireEvent.change(start, { target: { value: "08:15" } });
+    fireEvent.blur(start);
+    expect(
+      (screen.getAllByLabelText("End", { selector: "input" })[0] as HTMLInputElement).value,
+    ).toBe("09:15");
   });
 
   it("recommends staying within three calendar years", async () => {
@@ -192,7 +237,7 @@ describe("App", () => {
     render(<App />);
     await screen.findAllByRole("button", { name: DATE });
     fireEvent.change(screen.getByLabelText("Start year"), { target: { value: "2020" } });
-    expect(screen.getByText(/May 2020 is in the past/)).toBeTruthy();
+    expect(screen.getByText(/May 2020 and June 2020 are in the past/)).toBeTruthy();
   });
 
   it("lists tier sections in filter order and narrows them to weekends", async () => {

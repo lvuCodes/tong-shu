@@ -232,12 +232,14 @@ const MONTH_COLS: (Sortable<MonthRow> & { label: string; tip?: string })[] = [
     label: "Count",
     tip: "Days that any almanac lists for the event.",
     sort: (r) => r.count,
+    first: "descending",
   },
   ...TIER_ORDER.map((t) => ({
     key: t,
     label: TIER_LABELS[t],
     tip: TIER_TIPS[t],
     sort: (r: MonthRow) => r.tiers[t],
+    first: "descending" as const,
   })),
 ];
 
@@ -257,7 +259,7 @@ function MonthTable({ rows, openMonth }: { rows: MonthRow[]; openMonth: (ym: str
               <button
                 type="button"
                 className="sorter"
-                onClick={() => setSort(nextSort(sort, c.key))}
+                onClick={() => setSort(nextSort(sort, c.key, c.first))}
               >
                 {c.label}
               </button>

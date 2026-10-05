@@ -2,16 +2,20 @@
 
 import type { Day } from "../engine/almanac";
 
-export type Sort = { key: string; dir: "ascending" | "descending" } | null;
+export type SortDir = "ascending" | "descending";
 
-export function nextSort(cur: Sort, key: string): Sort {
-  if (!cur || cur.key !== key) return { key, dir: "ascending" };
-  return cur.dir === "ascending" ? { key, dir: "descending" } : null;
+export type Sort = { key: string; dir: SortDir } | null;
+
+export function nextSort(cur: Sort, key: string, first: SortDir = "ascending"): Sort {
+  if (!cur || cur.key !== key) return { key, dir: first };
+  if (cur.dir !== first) return null;
+  return { key, dir: first === "ascending" ? "descending" : "ascending" };
 }
 
 export interface Sortable<T> {
   key: string;
   sort?: (row: T) => number | string;
+  first?: SortDir;
 }
 
 export function sortRows<T = Day>(days: T[], cols: Sortable<T>[], sort: Sort): T[] {

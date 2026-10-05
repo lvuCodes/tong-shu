@@ -31,7 +31,7 @@ export function SortableTable({
                 <button
                   type="button"
                   className="sorter"
-                  onClick={() => setSort(nextSort(sort, c.key))}
+                  onClick={() => setSort(nextSort(sort, c.key, c.first))}
                 >
                   {c.label}
                 </button>

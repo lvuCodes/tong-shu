@@ -77,3 +77,14 @@ export function monthOf(d: Date): string {
 export function pastMonths(start: string, end: string, current: string): string[] {
   return [...new Set([start, end])].filter((ym) => ym < current);
 }
+
+export function nextMonth(ym: string): string {
+  const [y, m] = ym.split("-").map(Number);
+  return monthOf(new Date(y, m, 1));
+}
+
+export function hourAfter(hhmm: string): string {
+  const [h, m] = hhmm.split(":").map(Number);
+  if (h >= 23) return "23:59";
+  return `${String(h + 1).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+}
