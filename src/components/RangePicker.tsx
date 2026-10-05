@@ -1,5 +1,7 @@
 // Tong Shu. Copyright (C) 2026 lvuCodes. Licensed under GPL-3.0-or-later; see LICENSE.
 
+import { calendarYears, MAX_CALENDAR_YEARS, monthLabel, monthOf, pastMonths } from "./format";
+
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 interface MonthYearProps {
@@ -12,8 +14,8 @@ interface MonthYearProps {
 function MonthYear({ label, value, years, onChange }: MonthYearProps) {
   const [y, m] = value.split("-");
   return (
-    <fieldset className="monthyear">
-      <legend>{label}</legend>
+    <div className="monthyear" role="group" aria-label={label}>
+      <span>{label}</span>
       <select
         aria-label={`${label} month`}
         value={m}
@@ -36,7 +38,7 @@ function MonthYear({ label, value, years, onChange }: MonthYearProps) {
           </option>
         ))}
       </select>
-    </fieldset>
+    </div>
   );
 }
 
@@ -44,38 +46,32 @@ interface Props {
   start: string;
   end: string;
   onChange: (start: string, end: string) => void;
-  thisYear?: number;
+  today?: Date;
 }
 
-export function RangePicker({ start, end, onChange, thisYear = new Date().getFullYear() }: Props) {
+export function RangePicker({ start, end, onChange, today = new Date() }: Props) {
+  const thisYear = today.getFullYear();
+  const past = pastMonths(start, end, monthOf(today));
   const first = Math.min(thisYear - 10, Number(start.slice(0, 4)));
   const last = Math.max(thisYear + 20, Number(end.slice(0, 4)));
   const years = Array.from({ length: last - first + 1 }, (_, i) => first + i);
-  const presets = [thisYear, thisYear + 1, thisYear + 2];
+  const span = calendarYears(start, end);
   return (
     <div className="range" role="group" aria-label="Date range">
-      <MonthYear label="From" value={start} years={years} onChange={(v) => onChange(v, end)} />
-      <MonthYear label="To" value={end} years={years} onChange={(v) => onChange(start, v)} />
-      <span className="presets">
-        {presets.map((y) => (
-          <button
-            key={y}
-            type="button"
-            className="ghost"
-            aria-label={`Show all of ${y}`}
-            onClick={() => onChange(`${y}-01`, `${y}-12`)}
-          >
-            {y}
-          </button>
-        ))}
-        <button
-          type="button"
-          className="ghost"
-          onClick={() => onChange(`${presets[1]}-01`, `${presets[2]}-12`)}
-        >
-          {presets[1]} to {presets[2]}
-        </button>
-      </span>
+      <MonthYear label="Start" value={start} years={years} onChange={(v) => onChange(v, end)} />
+      <MonthYear label="End" value={end} years={years} onChange={(v) => onChange(start, v)} />
+      {past.length ? (
+        <p className="rangenote" role="status">
+          {past.map((ym) => monthLabel(ym)).join(" and ")} {past.length > 1 ? "are" : "is"} in the
+          past.
+        </p>
+      ) : null}
+      {span > MAX_CALENDAR_YEARS ? (
+        <p className="rangenote" role="status">
+          This range spans {span} calendar years. Staying within {MAX_CALENDAR_YEARS} is
+          recommended.
+        </p>
+      ) : null}
     </div>
   );
 }

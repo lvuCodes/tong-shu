@@ -1,6 +1,6 @@
 // Tong Shu. Copyright (C) 2026 lvuCodes. Licensed under GPL-3.0-or-later; see LICENSE.
 
-import { useMemo, type ReactNode } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { byRank, yearInfo, type Day } from "../engine/almanac";
 import {
   branchRows,
@@ -9,11 +9,12 @@ import {
   yearRelations,
   type BranchRow,
 } from "../engine/reference";
-import type { Person, Tier } from "../engine/rules";
-import { excludedColumns, TABOO_COLUMN, weddingColumns } from "./columns";
-import { TIER_ORDER, TIER_TIPS, monthLabel } from "./format";
-import { Pill, SpringPill, VerdictPill } from "./pills";
+import { STEM_ELEMENTS, type LunarYearInfo, type Person, type Tier } from "../engine/rules";
+import { excludedColumns, weddingColumns } from "./columns";
+import { TIER_LABELS, TIER_ORDER, TIER_TIPS, monthLabel } from "./format";
+import { Gz, Pill, SpringPill, VerdictPill } from "./pills";
 import { SortableTable } from "./SortableTable";
+import { nextSort, sortRows, type Sort, type Sortable } from "./sorting";
 
 interface Props {
   days: Day[];
@@ -24,11 +25,26 @@ interface Props {
   openDay: (date: string) => void;
   openMonth: (ym: string) => void;
   peoplePanel: ReactNode;
+  years: number[];
+  year: string;
+  onYear: (year: string) => void;
 }
 
-function Info({ id, title, children }: { id: string; title: string; children: ReactNode }) {
+const FIXED_COL = "date";
+
+function Info({
+  id,
+  title,
+  open = false,
+  children,
+}: {
+  id: string;
+  title: string;
+  open?: boolean;
+  children: ReactNode;
+}) {
   return (
-    <details className="info" data-info={id}>
+    <details className="info" data-info={id} open={open}>
       <summary>{title}</summary>
       {children}
     </details>
@@ -90,13 +106,13 @@ function Wheel({ rows, natal }: { rows: BranchRow[]; natal: Record<string, strin
           <svg viewBox="0 0 48 12">
             <line className="ln-six" x1="4" y1="6" x2="44" y2="6" />
           </svg>
-          Six harmony 六合, a pair bond
+          六合 Six harmony, a pair bond
         </div>
         <div>
           <svg viewBox="0 0 48 12">
             <line className="ln-trio" x1="4" y1="6" x2="44" y2="6" />
           </svg>
-          Three harmony 三合, a group bond
+          三合 Three harmony, a group bond
         </div>
         <table>
           <thead>
@@ -121,6 +137,160 @@ function Wheel({ rows, natal }: { rows: BranchRow[]; natal: Record<string, strin
   );
 }
 
+function FourPillars({ people }: { people: Person[] }) {
+  const rows: [string, (p: Person) => ReactNode][] = [
+    ["Year", (p) => <Gz gz={p.pillars.year} />],
+    ["Month", (p) => <Gz gz={p.pillars.month} />],
+    ["Day", (p) => <Gz gz={p.pillars.day} />],
+    ["Hour", (p) => <Gz gz={p.hourOptions} />],
+    [
+      "Day master",
+      (p) => (
+        <>
+          <span className="gz">{p.pillars.day[0]}</span> {STEM_ELEMENTS[p.pillars.day[0]]}
+        </>
+      ),
+    ],
+  ];
+  return (
+    <table className="pillars">
+      <thead>
+        <tr>
+          <th>Pillar</th>
+          {people.map((p) => (
+            <th key={p.label}>{p.label}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map(([name, cell]) => (
+          <tr key={name}>
+            <td>{name}</td>
+            {people.map((p) => (
+              <td key={p.label}>{cell(p)}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+function LunarYears({ years, people }: { years: LunarYearInfo[]; people: Person[] }) {
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>Lunar year</th>
+          <th>干支 Year pillar</th>
+          <th>Dates</th>
+          <th>立春 Start of Spring</th>
+          <th>Spring count</th>
+          <th>Leap month</th>
+          <th>Year branch vs people</th>
+        </tr>
+      </thead>
+      <tbody>
+        {years.map((y) => (
+          <tr key={y.lunarYear}>
+            <td>{y.lunarYear}</td>
+            <td>
+              <span className="gz">{y.ganzhi}</span>
+            </td>
+            <td className="mono">
+              {y.start} to {y.end}
+            </td>
+            <td className="mono">{y.liChun.join(", ") || "none"}</td>
+            <td>
+              <SpringPill y={y} />
+            </td>
+            <td>{y.leapMonth ?? "-"}</td>
+            <td>
+              {Object.entries(yearRelations(y.ganzhi, people)).map(([who, n]) => (
+                <div key={who}>
+                  {who}: {n.join(", ") || "none"}
+                </div>
+              ))}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+interface MonthRow {
+  ym: string;
+  count: number;
+  tiers: Record<Tier, number>;
+}
+
+const MONTH_COLS: (Sortable<MonthRow> & { label: string; tip?: string })[] = [
+  { key: "month", label: "Month", sort: (r) => r.ym },
+  {
+    key: "count",
+    label: "Count",
+    tip: "Days that any almanac lists for the event.",
+    sort: (r) => r.count,
+  },
+  ...TIER_ORDER.map((t) => ({
+    key: t,
+    label: TIER_LABELS[t],
+    tip: TIER_TIPS[t],
+    sort: (r: MonthRow) => r.tiers[t],
+  })),
+];
+
+function MonthTable({ rows, openMonth }: { rows: MonthRow[]; openMonth: (ym: string) => void }) {
+  const [sort, setSort] = useState<Sort>(null);
+  return (
+    <table>
+      <thead>
+        <tr>
+          {MONTH_COLS.map((c) => (
+            <th
+              key={c.key}
+              className={c.tip ? "coltip" : undefined}
+              data-tip={c.tip}
+              aria-sort={sort?.key === c.key ? sort.dir : "none"}
+            >
+              <button
+                type="button"
+                className="sorter"
+                onClick={() => setSort(nextSort(sort, c.key))}
+              >
+                {c.label}
+              </button>
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {sortRows(rows, MONTH_COLS, sort).map((r) => (
+          <tr key={r.ym}>
+            <td>
+              <button
+                type="button"
+                className="datelink"
+                aria-label={monthLabel(r.ym)}
+                onClick={() => openMonth(r.ym)}
+              >
+                {monthLabel(r.ym).split(" ")[0]}
+              </button>
+            </td>
+            <td className="num">{r.count}</td>
+            {TIER_ORDER.map((t) => (
+              <td key={t} className="num">
+                {r.tiers[t]}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
 export function DateSelection({
   days,
   people,
@@ -130,198 +300,182 @@ export function DateSelection({
   openDay,
   openMonth,
   peoplePanel,
+  years: yearOptions,
+  year,
+  onYear,
 }: Props) {
+  const [hiddenTiers, setHiddenTiers] = useState<string[]>([]);
+  const [weekendOnly, setWeekendOnly] = useState(false);
+  const pool = weekendOnly ? days.filter((d) => d.weekend) : days;
+  const showing = (t: string) => !hiddenTiers.includes(t);
+  const toggleTier = (t: string) =>
+    setHiddenTiers((h) => (h.includes(t) ? h.filter((k) => k !== t) : [...h, t]));
   const labelsKey = people.map((p) => p.label).join("|");
   const labels = useMemo(() => labelsKey.split("|"), [labelsKey]);
   const allCols = useMemo(() => weddingColumns(labels, place, openDay), [labels, place, openDay]);
-  const visible = allCols.filter((c) => !hiddenCols.includes(c.key));
-  const excluded = excludedColumns(allCols, labels).filter((c) => !hiddenCols.includes(c.key));
+  const shown = (key: string) => key === FIXED_COL || !hiddenCols.includes(key);
+  const visible = allCols.filter((c) => shown(c.key));
+  const excluded = excludedColumns(allCols, labels).filter((c) => shown(c.key));
   const rows = useMemo(() => branchRows(people), [people]);
   const natal = useMemo(() => natalBranches(people), [people]);
 
   const tiers = Object.fromEntries(
-    TIER_ORDER.map((t) => [t, days.filter((d) => d.tier === t)]),
+    TIER_ORDER.map((t) => [t, pool.filter((d) => d.tier === t)]),
   ) as Record<Tier, Day[]>;
-  const ranked = (t: Tier) => [...tiers[t]].sort(byRank);
-  const weekend = [...tiers.Recommended, ...tiers.Acceptable]
-    .filter((d) => d.weekend)
-    .sort((a, b) => (a.date < b.date ? -1 : 1));
+  const ordered = (t: Tier) =>
+    t === "Recommended" || t === "Acceptable" ? [...tiers[t]].sort(byRank) : tiers[t];
   const years = [...new Set(days.map((d) => d.lunarYear))].map(yearInfo);
   const months = [...new Set(days.map((d) => d.date.slice(0, 7)))];
-  const jump = (id: string) => document.getElementById(id)?.scrollIntoView({ block: "start" });
   const toggleCol = (key: string) => {
     onHiddenCols(
       hiddenCols.includes(key) ? hiddenCols.filter((k) => k !== key) : [...hiddenCols, key],
     );
   };
 
+  const monthYears = [...new Set(months.map((ym) => ym.slice(0, 4)))];
+  const monthRows = months.map((ym) => {
+    const ds = pool.filter((d) => d.date.startsWith(ym));
+    return {
+      ym,
+      count: ds.filter((d) => d.listed.length).length,
+      tiers: Object.fromEntries(
+        TIER_ORDER.map((t) => [t, ds.filter((d) => d.tier === t).length]),
+      ) as Record<Tier, number>,
+    };
+  });
+  const monthly = (
+    <div className="yeartables">
+      {monthYears.map((y) => (
+        <section key={y} aria-label={`Monthly counts ${y}`}>
+          {monthYears.length > 1 ? <h3>{y}</h3> : null}
+          <MonthTable rows={monthRows.filter((r) => r.ym.startsWith(y))} openMonth={openMonth} />
+        </section>
+      ))}
+    </div>
+  );
+
   return (
     <>
-      <div className="counts">
-        {TIER_ORDER.map((t) => (
-          <button
-            key={t}
-            type="button"
-            className={`badge tip t-${t.toLowerCase()}`}
-            data-tip={`${TIER_TIPS[t]}\n\nClick to jump to the list.`}
-            onClick={() => jump(`sec-${t}`)}
-          >
-            {t} {tiers[t].length}
-          </button>
-        ))}
-        <button
-          type="button"
-          className="badge tip t-none"
-          data-tip="Saturdays and Sundays in the Recommended and Acceptable tiers.\n\nClick to jump to the list."
-          onClick={() => jump("sec-Weekend")}
-        >
-          Weekend options {weekend.length}
-        </button>
-      </div>
-      {peoplePanel}
-      <Info id="wheel" title="Day animals">
-        <Wheel rows={rows} natal={natal} />
-      </Info>
-      <Info id="branches" title="Day branch effects">
-        <table>
-          <thead>
-            <tr>
-              <th>Day branch</th>
-              {rows[0]?.cells.map((c) => (
-                <th key={c.column}>{c.column}</th>
-              ))}
-              <th>Overall</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.branch}>
-                <td>
-                  <span className="gz">{r.branch}</span> {r.animal}
-                </td>
-                {r.cells.map((c) => (
-                  <td key={c.column}>
-                    <VerdictPill a={c.assessment} /> {c.assessment.notes.join(", ") || "none"}
-                  </td>
-                ))}
-                <td>
-                  <Pill
-                    cls={`v-${r.verdict.toLowerCase()}`}
-                    tip="The lowest personal rating for this day animal."
-                  >
-                    {r.verdict}
-                  </Pill>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Info>
-      <Info id="years" title="Lunar years">
-        <table>
-          <thead>
-            <tr>
-              <th>Lunar year</th>
-              <th>Year pillar 干支</th>
-              <th>Dates</th>
-              <th>Start of Spring 立春</th>
-              <th>Spring count</th>
-              <th>Leap month</th>
-              <th>Year branch vs people</th>
-            </tr>
-          </thead>
-          <tbody>
-            {years.map((y) => (
-              <tr key={y.lunarYear}>
-                <td>{y.lunarYear}</td>
-                <td>
-                  <span className="gz">{y.ganzhi}</span>
-                </td>
-                <td className="mono">
-                  {y.start} to {y.end}
-                </td>
-                <td className="mono">{y.liChun.join(", ") || "none"}</td>
-                <td>
-                  <SpringPill y={y} />
-                </td>
-                <td>{y.leapMonth ?? "-"}</td>
-                <td>
-                  {Object.entries(yearRelations(y.ganzhi, people)).map(([who, n]) => (
-                    <div key={who}>
-                      {who}: {n.join(", ") || "none"}
-                    </div>
+      <div className="toprow">
+        {peoplePanel}
+        <div className="side">
+          <Info id="years" title="Lunar years" open>
+            <LunarYears years={years} people={people} />
+          </Info>
+          <Info id="pillars" title="八字 Four Pillars">
+            <FourPillars people={people} />
+          </Info>
+          <Info id="wheel" title="Day animals">
+            <Wheel rows={rows} natal={natal} />
+          </Info>
+          <Info id="branches" title="Day branch effects">
+            <table>
+              <thead>
+                <tr>
+                  <th>Day branch</th>
+                  {rows[0]?.cells.map((c) => (
+                    <th key={c.column}>{c.column}</th>
                   ))}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Info>
-      <Info id="guide" title="Column guide">
-        <dl className="guide">
-          {[...allCols, TABOO_COLUMN].map((c) => (
-            <div key={c.key}>
-              <dt>{c.label}</dt>
-              <dd>{c.desc}</dd>
-            </div>
-          ))}
-        </dl>
-      </Info>
-      <div className="colpicker">
-        <span>Columns</span>
-        {allCols.map((c) => (
-          <button
-            key={c.key}
-            type="button"
-            aria-pressed={!hiddenCols.includes(c.key)}
-            onClick={() => toggleCol(c.key)}
-          >
-            {c.label}
-          </button>
-        ))}
-      </div>
-      <h2 id="sec-Recommended">Recommended</h2>
-      <SortableTable label="Recommended" cols={visible} days={ranked("Recommended")} />
-      <h2 id="sec-Weekend">Weekend options</h2>
-      <SortableTable label="Weekend options" cols={visible} days={weekend} />
-      <h2 id="sec-Acceptable">Acceptable</h2>
-      <SortableTable label="Acceptable" cols={visible} days={ranked("Acceptable")} />
-      <h2 id="sec-Caution">Caution</h2>
-      <SortableTable label="Caution" cols={visible} days={tiers.Caution} />
-      <h2 id="sec-Excluded">Excluded listed dates</h2>
-      <SortableTable label="Excluded" cols={excluded} days={tiers.Excluded} />
-      <h2>Monthly counts</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Month</th>
-            <th>Listed by any source</th>
-            {TIER_ORDER.map((t) => (
-              <th key={t}>{t}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {months.map((ym) => {
-            const ds = days.filter((d) => d.date.startsWith(ym));
-            return (
-              <tr key={ym}>
-                <td>
-                  <button type="button" className="datelink" onClick={() => openMonth(ym)}>
-                    {monthLabel(ym)}
-                  </button>
-                </td>
-                <td className="num">{ds.filter((d) => d.listed.length).length}</td>
-                {TIER_ORDER.map((t) => (
-                  <td key={t} className="num">
-                    {ds.filter((d) => d.tier === t).length}
-                  </td>
+                  <th>Overall</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((r) => (
+                  <tr key={r.branch}>
+                    <td>
+                      <span className="gz">{r.branch}</span> {r.animal}
+                    </td>
+                    {r.cells.map((c) => (
+                      <td key={c.column}>
+                        <VerdictPill a={c.assessment} /> {c.assessment.notes.join(", ") || "none"}
+                      </td>
+                    ))}
+                    <td>
+                      <Pill
+                        cls={`v-${r.verdict.toLowerCase()}`}
+                        tip="The lower of the two personal ratings for this day animal."
+                      >
+                        {r.verdict}
+                      </Pill>
+                    </td>
+                  </tr>
                 ))}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+              </tbody>
+            </table>
+          </Info>
+          <Info id="months" title="Monthly counts" open>
+            {monthly}
+          </Info>
+        </div>
+      </div>
+      <div className="filterbar">
+        <div className="counts" role="group" aria-label="Show tiers">
+          <span>Show</span>
+          {TIER_ORDER.map((t) => (
+            <button
+              key={t}
+              type="button"
+              className={`badge tip t-${t.toLowerCase()}`}
+              aria-pressed={showing(t)}
+              data-tip={`${TIER_TIPS[t]}\n\nClick to show or hide the list.`}
+              onClick={() => toggleTier(t)}
+            >
+              {TIER_LABELS[t]} {tiers[t].length}
+            </button>
+          ))}
+        </div>
+        <div className="years" role="group" aria-label="Year">
+          <span>Year</span>
+          <button
+            type="button"
+            className="weekendbtn"
+            aria-pressed={weekendOnly}
+            onClick={() => setWeekendOnly((w) => !w)}
+          >
+            Weekends only
+          </button>
+          {["all", ...yearOptions.map(String)].map((y) => (
+            <button key={y} type="button" aria-pressed={year === y} onClick={() => onYear(y)}>
+              {y === "all" ? "All" : y}
+            </button>
+          ))}
+        </div>
+        <div className="colpicker" role="group" aria-label="Columns">
+          <span>Columns</span>
+          {allCols
+            .filter((c) => c.key !== FIXED_COL)
+            .map((c) => (
+              <button
+                key={c.key}
+                type="button"
+                aria-pressed={!hiddenCols.includes(c.key)}
+                onClick={() => toggleCol(c.key)}
+              >
+                {c.label}
+              </button>
+            ))}
+          <button
+            type="button"
+            className="showall"
+            disabled={!hiddenCols.length}
+            onClick={() => onHiddenCols([])}
+          >
+            Show all
+          </button>
+        </div>
+      </div>
+      {TIER_ORDER.filter(showing).map((t) => (
+        <details key={t} className="tiersec" open>
+          <summary>
+            <h2 id={`sec-${t}`}>{TIER_LABELS[t]}</h2>
+          </summary>
+          <SortableTable
+            label={TIER_LABELS[t]}
+            cols={t === "Excluded" ? excluded : visible}
+            days={ordered(t)}
+          />
+        </details>
+      ))}
     </>
   );
 }

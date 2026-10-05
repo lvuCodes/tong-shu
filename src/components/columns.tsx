@@ -2,10 +2,11 @@
 
 import type { ReactNode } from "react";
 import type { Day } from "../engine/almanac";
-import { ganzhiEn, lunarDateEn } from "../engine/dictionary";
+import { lunarDateEn } from "../engine/dictionary";
 import {
   AdjustedPill,
   Bi,
+  Gz,
   DongGongPill,
   FlagPills,
   NotePills,
@@ -38,7 +39,7 @@ export function weddingColumns(
     sort: (d) => d.group.persons[label]?.score ?? 0,
     cell: (d) => (d.group.persons[label] ? <VerdictPill a={d.group.persons[label]} /> : "-"),
     className: "nowrap",
-    desc: `${label}'s own rating for the day: the day pillar compared with each pillar of ${label}'s birth chart. Harmonies add points, clashes, punishments, harms and breaks subtract them. Hover the pill for the scored reasons.`,
+    desc: `${label}'s own rating for the day. The day's pillar is compared with each pillar of ${label}'s birth chart. Harmonies add points, while clashes, punishments, harms and breaks take points away. Hover over the rating to see the reasons.`,
   });
   return [
     {
@@ -51,7 +52,7 @@ export function weddingColumns(
           {d.date}
         </button>
       ),
-      desc: "Gregorian date. Click it to open the day in the Calendar tab with its full almanac entry and hour table.",
+      desc: "The everyday calendar date. Click it to open the day in Calendar View with its full almanac entry and hour-by-hour table.",
     },
     {
       key: "day",
@@ -61,30 +62,38 @@ export function weddingColumns(
       desc: "Day of the week.",
     },
     {
+      key: "hours",
+      label: "Best local hours",
+      className: "mono nowrap",
+      cell: (d) => {
+        const hours = picks(d);
+        return hours.length ? hours.map((h) => <div key={h}>{h}</div>) : "-";
+      },
+      desc: `The 时辰 two-hour periods that are auspicious (Yellow Belt) and do not clash with either birth chart, shown in local clock time for ${place}. The times are adjusted for the sun's actual position.`,
+    },
+    {
       key: "lunar",
       label: "Lunar date",
       className: "nowrap",
       cell: (d) => <Bi zh={d.lunar} english={lunarDateEn(d.lunar, d.lunarMonth, d.lunarDay)} />,
-      desc: "Date in the Chinese lunisolar calendar. Several taboos, such as 三娘煞 Three Maidens and the monthly taboo days, fall on fixed lunar days.",
+      desc: "The date in the Chinese lunar calendar, which follows both the moon and the sun. Several taboos, such as 三娘煞 Three Maidens and the monthly taboo days, fall on fixed lunar dates.",
     },
     {
       key: "pillar",
-      label: "Day pillar 日柱",
+      label: "日柱 Day pillar",
       className: "nowrap",
-      cell: (d) => (
-        <Bi zh={<span className="gz">{d.pillars.day}</span>} english={ganzhiEn(d.pillars.day)} />
-      ),
-      desc: "The stem and branch of the day in the 60-day cycle. The branch (animal) is compared with each birth chart, and the stem sets the ten-god relation to each person's day master.",
+      cell: (d) => <Gz gz={d.pillars.day} />,
+      desc: "The day's stem and branch in the repeating 60-day cycle. The branch, an animal sign, is compared with each birth chart. The stem is compared with each person's day master, the stem that stands for that person.",
     },
     {
       key: "officer",
-      label: "Day officer 建除",
+      label: "建除 Day officer",
       cell: (d) => <Bi zh={d.officer} english={d.officerEn} />,
-      desc: "One of the twelve day officers 建除十二神, which cycle through the month. Each favors or forbids certain activities.",
+      desc: "One of the twelve 建除十二神 day officers, which rotate through each month. Each one favors some activities and forbids others.",
     },
     {
       key: "god",
-      label: "Day god 天神",
+      label: "天神 Day god",
       className: "nowrap",
       cell: (d) => (
         <Bi
@@ -92,16 +101,16 @@ export function weddingColumns(
           english={`${d.tianShenEn}, ${d.belt === "黄道" ? "Yellow Belt" : "Black Belt"}`}
         />
       ),
-      desc: "The ruling spirit of the day. Six are Yellow Belt 黄道, auspicious, and six are Black Belt 黑道, inauspicious. A Yellow Belt day ranks slightly higher.",
+      desc: "The spirit in charge of the day. Six of these spirits are 黄道 Yellow Belt, which is auspicious, and six are 黑道 Black Belt, which is inauspicious. A Yellow Belt day ranks slightly higher.",
     },
     ...labels.map(person),
     {
       key: "overall",
-      label: "Overall",
+      label: "Overall score",
       sort: (d) => d.group.score,
       className: "nowrap",
       cell: (d) => <OverallPill day={d} />,
-      desc: "The lowest personal rating, so one bad conflict is never averaged away. The total beneath it adds every personal score and any virtue stars, which add +1 each.",
+      desc: "The lower of the two personal ratings, so one bad conflict is never hidden by an average. The total beneath it adds up both personal scores plus any virtue stars, which add +1 each.",
     },
     {
       key: "clash",
@@ -110,50 +119,42 @@ export function weddingColumns(
       cell: (d) => (
         <Bi zh={`${d.chongAnimal} ${d.clash.gz}`} english={`born ${d.clash.years.join(", ")}`} />
       ),
-      desc: "The day's branch clashes one zodiac animal. Guests born in those years are traditionally advised to avoid the ceremony itself.",
-    },
-    {
-      key: "hours",
-      label: "Best hours, local clock",
-      className: "mono",
-      cell: (d) => picks(d),
-      desc: `The two-hour periods 时辰 that are Yellow Belt and do not clash anyone's chart, converted to the local clock in ${place} using true solar time.`,
+      desc: "The day clashes with one zodiac animal. By tradition, guests born in those years skip the ceremony itself.",
     },
     {
       key: "donggong",
-      label: "董公 Dong Gong",
+      label: "董公 Dǒng Gōng",
       sort: (d) => d.dongGong.rating,
       className: "nowrap",
       cell: (d) => <DongGongPill day={d} />,
-      desc: "The verdict of the classical date-selection manual 董公选择日要览 for this month and day pillar, from very bad xx to very good ***. Its marriage verdict counts as one flag.",
+      desc: "The rating from the classic date-selection manual 董公选择日要览 for this month and day pillar, from very bad (xx) to very good (***). Its wedding rating counts as one flag.",
     },
     {
       key: "flags",
       label: "Flags",
       sort: (d) => d.group.flagPoints,
       cell: (d) => <FlagPills day={d} />,
-      desc: "Folk and almanac signs that are not hard taboos: green ones count +1, amber ones count -1. Virtue stars are listed here too but are scored in the total, not as flags.",
+      desc: "Folk and almanac signs that are milder than taboos. Green flags count +1 and amber flags count -1. Virtue stars appear here too, but they count toward the total instead.",
     },
     {
       key: "adjusted",
-      label: "Adjusted with flags",
+      label: "Adjusted score",
       sort: (d) => d.group.adjustedScore,
       className: "nowrap",
       cell: (d) => <AdjustedPill day={d} />,
-      desc: "The overall rating after the flags. Every 2 net flag points move the rating one level, but flags never push a day to Avoid or lift a Caution or Avoid day. This rating decides the tier.",
+      desc: "The overall rating after the flags are counted. Every 2 net flag points move the rating one level. Flags never push a day down to Avoid, and never raise a Caution or Avoid day. This rating decides the day's group.",
     },
     {
       key: "sources",
-      label: "Listed for weddings by",
+      label: "Sources and notes",
       sort: (d) => d.listed.length,
-      cell: (d) => <SourceList day={d} />,
-      desc: "How many almanac sources list the day as suitable for 嫁娶 (wedding), followed by which ones. A day must be listed by lunar-python to be Recommended.",
-    },
-    {
-      key: "notes",
-      label: "Notes",
-      cell: (d) => <NotePills day={d} place={place} />,
-      desc: "Public holidays at the event location, days whose rating depends on an unknown birth hour, and days the main almanac does not list.",
+      cell: (d) => (
+        <div className="cellstack">
+          <SourceList day={d} />
+          <NotePills day={d} place={place} />
+        </div>
+      ),
+      desc: "The other almanacs that list the day for 嫁娶 weddings. Notes below them mark public holidays at the event location, Friday the 13th, days whose rating depends on an unknown birth hour, and days our almanac does not list.",
     },
   ];
 }
@@ -163,7 +164,7 @@ export const TABOO_COLUMN: Column = {
   label: "Taboos",
   sort: (d) => d.taboos.length,
   cell: (d) => <TabooPills day={d} />,
-  desc: "Hard taboos that rule a day out for weddings whatever else it has going for it, such as 三娘煞 Three Maidens, 月厌, 岁破 Year Breaker and 月破 Month Breaker. Shown only in the Excluded table.",
+  desc: "Wedding taboos that rule a day out no matter how good it is otherwise, such as 三娘煞 Three Maidens, 月厌, 岁破 Year Breaker and 月破 Month Breaker. Shown only in the Poor table.",
 };
 
 export function excludedColumns(cols: Column[], labels: string[]): Column[] {

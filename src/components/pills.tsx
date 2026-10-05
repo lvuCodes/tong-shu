@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { SOURCE_LABELS, type Day } from "../engine/almanac";
-import { en } from "../engine/dictionary";
+import { en, ganzhiEn, ganzhiPinyin } from "../engine/dictionary";
 import {
   VIRTUE_TIP,
   tabooTip,
@@ -10,21 +10,21 @@ import {
   type LunarYearInfo,
   type Tier,
 } from "../engine/rules";
-import { SOURCE_TIPS, TIER_TIPS, signed } from "./format";
+import { SOURCE_TIPS, TIER_LABELS, TIER_TIPS, signed } from "./format";
 
 const VERDICT_TIPS: Record<string, string> = {
-  Excellent: "Score of +4 or more with no serious conflicts.",
+  Excellent: "A score of +4 or more, with no serious conflicts.",
   Good: "Score of +1 to +3 with no serious conflicts.",
-  Neutral: "Score of 0 or below with no serious conflicts.",
-  Caution: "One serious conflict, such as a punishment or harm with a year or day pillar.",
-  Avoid: "A clash with a year or day pillar, or two serious conflicts.",
+  Neutral: "A score of 0 or below, with no serious conflicts.",
+  Caution: "One serious conflict, such as a punishment or harm with the birth year or birth day.",
+  Avoid: "A clash with the birth year or birth day, or two serious conflicts.",
 };
 
 const VIRTUE_MEANING: Record<string, string> = {
-  天德: "The strongest protective star, placed by the month. Said to dissolve harm on the day.",
-  月德: "A protective star placed by the element of the month. Said to dissolve harm on the day.",
-  天德合: "The stem that combines with Heavenly Virtue. A gentler form of the same protection.",
-  月德合: "The stem that combines with Monthly Virtue. A gentler form of the same protection.",
+  天德: "The strongest protective star, set by the month. It is said to cancel out harm on that day.",
+  月德: "A protective star set by the month's element. It is said to cancel out harm on that day.",
+  天德合: "The partner of Heavenly Virtue. It gives a milder form of the same protection.",
+  月德合: "The partner of Monthly Virtue. It gives a milder form of the same protection.",
 };
 
 export function Pill({ cls, tip, children }: { cls: string; tip?: string; children: ReactNode }) {
@@ -34,6 +34,17 @@ export function Pill({ cls, tip, children }: { cls: string; tip?: string; childr
     </span>
   ) : (
     <span className={`badge ${cls}`}>{children}</span>
+  );
+}
+
+export function Gz({ gz, plain = false }: { gz: string | string[]; plain?: boolean }) {
+  const all = Array.isArray(gz) ? gz : [gz];
+  return (
+    <>
+      <span className={plain ? undefined : "gz"}>{all.join(" or ")}</span>
+      <small className="en">{all.map(ganzhiPinyin).join(" or ")}</small>
+      <small className="en">{all.map(ganzhiEn).join(" or ")}</small>
+    </>
   );
 }
 
@@ -54,7 +65,7 @@ export function TierPill({ day, tier }: { day?: Day; tier: Tier | null }) {
       : "No source lists this day for weddings.";
   return (
     <Pill cls={`t-${(tier ?? "none").toLowerCase()}`} tip={tip}>
-      {tier ?? "Not listed"}
+      {tier ? TIER_LABELS[tier] : "Not listed"}
     </Pill>
   );
 }
@@ -79,7 +90,7 @@ function overallTip(day: Day): string {
   const virtue = g.virtueStars.length
     ? `\n• virtue +${g.virtueStars.length} (${g.virtueStars.join(" ")})`
     : "";
-  return `Overall is the lowest personal rating.\n\nTotal ${signed(g.score)}:\n${persons}${virtue}\n\n${VIRTUE_TIP}`;
+  return `Overall is the lower of the two personal ratings.\n\nTotal ${signed(g.score)}:\n${persons}${virtue}\n\n${VIRTUE_TIP}`;
 }
 
 export function OverallPill({ day, compact }: { day: Day; compact?: boolean }) {
@@ -104,7 +115,7 @@ function adjustedTip(day: Day): string {
   const flags = day.flags
     .map((f) => `\n    ${f.zh} ${f.kind === "positive" ? "+1" : "-1"}`)
     .join("");
-  return `Adjusted total ${signed(g.adjustedScore)}:\n• total ${signed(g.score)}\n• flags ${signed(g.flagPoints)}${flags}\n\nEvery 2 net flag points move the overall rating one level.\nFlags never push a day to Avoid or lift a Caution or Avoid day.`;
+  return `Adjusted score ${signed(g.adjustedScore)}:\n• total ${signed(g.score)}\n• flags ${signed(g.flagPoints)}${flags}\n\nEvery 2 net flag points move the overall rating one level.\nFlags never push a day down to Avoid, and never raise a Caution or Avoid day.`;
 }
 
 export function AdjustedPill({ day, compact }: { day: Day; compact?: boolean }) {
@@ -132,7 +143,7 @@ export function FlagPills({ day }: { day: Day }) {
         <div className="flagitem" key={v}>
           <Pill
             cls="v-virtue"
-            tip={`${VIRTUE_MEANING[v]} Adds +1 to the total score but is not counted as a flag point.`}
+            tip={`${VIRTUE_MEANING[v]} It adds +1 to the total score but does not count as a flag.`}
           >
             {v}
           </Pill>
@@ -174,7 +185,7 @@ export function DongGongPill({ day }: { day: Day }) {
   return (
     <Pill
       cls={dgClass(t.rating)}
-      tip={`From the classical manual 董公选择日要览, ${scope}.\n\n${t.summaryEn}\n\nMarriage: ${t.marriage}\n\nOriginal:\n${t.text}\n\nNot scored, but the marriage verdict counts as a flag.`}
+      tip={`From the classical manual 董公选择日要览, ${scope}.\n\n${t.summaryEn}\n\nMarriage: ${t.marriage}\n\nOriginal:\n${t.text}\n\nIt is not scored, but its wedding rating counts as a flag.`}
     >
       {t.symbol} {t.label}
     </Pill>
@@ -184,23 +195,33 @@ export function DongGongPill({ day }: { day: Day }) {
 export function SourceList({ day }: { day: Day }) {
   return (
     <span className="badgerow">
-      {day.listed.length}
-      {day.listed.map((k) => (
-        <Pill key={k} cls="t-none" tip={SOURCE_TIPS[k]}>
-          {SOURCE_LABELS[k]}
-        </Pill>
-      ))}
+      {day.listed
+        .filter((k) => k !== "lunar_python")
+        .map((k) => (
+          <Pill key={k} cls="t-none" tip={SOURCE_TIPS[k]}>
+            {SOURCE_LABELS[k]}
+          </Pill>
+        ))}
     </span>
   );
 }
 
 export function NotePills({ day, place }: { day: Day; place: string }) {
   const notes = [
+    day.weekday === "Fri" && day.date.endsWith("-13") && (
+      <Pill
+        key="f"
+        cls="t-western"
+        tip="Western folk belief treats Friday the 13th as unlucky. Some guests may mind, and it has no effect on the rating."
+      >
+        Friday the 13th
+      </Pill>
+    ),
     day.holiday && (
       <Pill
         key="h"
-        cls="t-none"
-        tip={`Public holiday where the event is held, ${place}. Venues, travel and guest availability may be affected.`}
+        cls="t-western"
+        tip={`A public holiday where the event is held, ${place}. Venues, travel and guests' schedules may be affected.`}
       >
         {day.holiday}
       </Pill>
@@ -209,7 +230,7 @@ export function NotePills({ day, place }: { day: Day; place: string }) {
       <Pill
         key="b"
         cls="t-none"
-        tip="One partner's exact birth hour is unknown and the possible hours rate this day differently. The lower rating is used."
+        tip="One partner's exact birth hour is unknown, and the possible hours rate this day differently. The lower rating is used."
       >
         Depends on birth hour
       </Pill>
@@ -217,22 +238,22 @@ export function NotePills({ day, place }: { day: Day; place: string }) {
     !day.sources.lunar_python && (
       <Pill
         key="m"
-        cls="t-none"
-        tip="The main almanac calculation, following 协纪辨方书, does not list 嫁娶 (wedding) as suitable on this day. Only other websites list it, so the day cannot be Recommended."
+        cls="t-caution"
+        tip="Our almanac, which follows 协纪辨方书, does not list this day for 嫁娶 weddings. Only other almanac websites list it, so we cannot confirm it."
       >
-        Not in main almanac
+        Not in our almanac
       </Pill>
     ),
   ].filter(Boolean);
-  return notes.length ? <span className="badgerow">{notes}</span> : <>-</>;
+  return notes.length ? <span className="badgerow">{notes}</span> : null;
 }
 
 export function SpringPill({ y }: { y: LunarYearInfo }) {
   const tip = y.widow
-    ? "Folk belief calls it a blind year and says a marriage begun in it lacks vitality. Counted as a caution flag."
+    ? "Folk belief calls it a blind year and says a marriage begun in it lacks vitality. It counts as a warning flag."
     : y.liChun.length === 2
-      ? "Folk belief treats it as lucky for marriage. Counted as a good flag."
-      : "The ordinary case, with no folk significance.";
+      ? "Folk belief treats it as lucky for marriage. It counts as a good flag."
+      : "The usual case, with no special folk meaning.";
   return (
     <Pill cls={y.widow ? "v-caution" : "v-good"} tip={tip}>
       {y.spring} {y.springEn}

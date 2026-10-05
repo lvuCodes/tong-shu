@@ -2,32 +2,20 @@
 
 import "./App.css";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { BackLink, FooterCredits, ThemeSwitcher, useTheme } from "@lvucodes/ui";
+import { BackLink, FooterCredits, ThemeSwitcher } from "@lvucodes/ui";
 import { loadSnapshots } from "./data/snapshots";
 import { buildRange, type Snapshots } from "./engine/almanac";
 import { derivePerson, type Person } from "./engine/rules";
 import { hasHolidayTable } from "./engine/holidays";
-import {
-  clearSettings,
-  defaultSettings,
-  loadSettings,
-  saveSettings,
-  type Settings,
-} from "./settings";
+import { defaultSettings, loadSettings, saveSettings, type Settings } from "./settings";
 import { Calendar } from "./components/Calendar";
 import { DateSelection } from "./components/DateSelection";
-import { monthLabel } from "./components/format";
 import { PeoplePanel } from "./components/PeoplePanel";
 import { RangePicker } from "./components/RangePicker";
-import { Sources } from "./components/Sources";
-
-type Tab = "selection" | "calendar" | "sources" | "settings";
-const TABS: [Tab, string][] = [
-  ["selection", "Date selection"],
-  ["calendar", "Calendar"],
-  ["sources", "Sources"],
-  ["settings", "Settings"],
-];
+import { About } from "./components/About";
+import { formatRoute, parseRoute, TABS, type Route } from "./route";
+import { useSiteTheme } from "./useSiteTheme";
+import { useManifest } from "./data/useManifest";
 
 const EMPTY_SNAPSHOTS: Snapshots = { cco: {}, reliability: {}, weddings: {} };
 
@@ -45,12 +33,22 @@ function safeDerive(p: Settings["people"][number]): Person | Error {
 }
 
 function App() {
-  const [theme, setTheme] = useTheme();
+  const [theme, setTheme] = useSiteTheme();
+  const manifest = useManifest();
   const [settings, setSettings] = useState<Settings>(loadSettings);
-  const [tab, setTab] = useState<Tab>("selection");
+  const [route, setRoute] = useState<Route>(() => parseRoute(location.hash, settings.start));
+  const { tab, month, selected } = route;
   const [snap, setSnap] = useState<Snapshots | null>(null);
-  const [month, setMonth] = useState(settings.start);
-  const [selected, setSelected] = useState("");
+
+  const navigate = useCallback((next: Route) => {
+    history.pushState(null, "", formatRoute(next));
+    setRoute(next);
+  }, []);
+  useEffect(() => {
+    const onPop = () => setRoute(parseRoute(location.hash, loadSettings().start));
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
 
   const patch = useCallback((p: Partial<Settings>) => setSettings((s) => ({ ...s, ...p })), []);
   useEffect(() => saveSettings(settings), [settings]);
@@ -97,24 +95,20 @@ function App() {
   );
   const shown =
     settings.year === "all" ? days : days.filter((d) => d.date.startsWith(settings.year));
-  const shownMonth = shown.some((d) => d.date.startsWith(month))
+  const shownMonth = days.some((d) => d.date.startsWith(month))
     ? month
-    : (shown[0]?.date.slice(0, 7) ?? month);
+    : (days[0]?.date.slice(0, 7) ?? month);
 
+  const selectDay = (date: string) =>
+    navigate({ tab: "calendar", month: date.slice(0, 7), selected: date });
   const openDay = useCallback(
     (date: string) => {
-      setMonth(date.slice(0, 7));
-      setSelected(date);
-      setTab("calendar");
+      navigate({ tab: "calendar", month: date.slice(0, 7), selected: date });
       window.scrollTo(0, 0);
     },
-    [setMonth],
+    [navigate],
   );
-  const openMonth = (ym: string) => {
-    setMonth(ym);
-    setSelected("");
-    setTab("calendar");
-  };
+  const openMonth = (ym: string) => navigate({ tab: "calendar", month: ym, selected: "" });
 
   const peoplePanel = (
     <PeoplePanel
@@ -123,6 +117,11 @@ function App() {
       event={settings.event}
       onPeople={(p) => patch({ people: p })}
       onEvent={(e) => patch({ event: e })}
+      onClear={() => {
+        if (window.confirm("Clear all entered data and reset to the sample couple?"))
+          setSettings(defaultSettings(null));
+      }}
+      range={<RangePicker start={settings.start} end={settings.end} onChange={setRange} />}
     />
   );
 
@@ -130,10 +129,8 @@ function App() {
     <main className="page">
       <BackLink />
       <header className="masthead">
-        <h1>Tong Shu 通书</h1>
-        <span className="sub">
-          {monthLabel(settings.start)} to {monthLabel(settings.end)} · {settings.event.place}
-        </span>
+        <h1>通书 Tōng Shū</h1>
+        <span className="sub">The Chinese almanac for choosing auspicious days</span>
       </header>
       <ThemeSwitcher theme={theme} onChange={setTheme} />
       <nav className="tabs" role="tablist">
@@ -143,25 +140,12 @@ function App() {
             type="button"
             role="tab"
             aria-selected={tab === id}
-            onClick={() => setTab(id)}
+            onClick={() => navigate({ ...route, tab: id })}
           >
             {label}
           </button>
         ))}
-        <span className="years" role="group" aria-label="Year">
-          {["all", ...years.map(String)].map((y) => (
-            <button
-              key={y}
-              type="button"
-              aria-pressed={settings.year === y}
-              onClick={() => patch({ year: y })}
-            >
-              {y === "all" ? "All" : y}
-            </button>
-          ))}
-        </span>
       </nav>
-      <RangePicker start={settings.start} end={settings.end} onChange={setRange} />
 
       {!snap ? <p className="status">Loading almanac snapshots…</p> : null}
       {snap && !people.length ? (
@@ -178,47 +162,37 @@ function App() {
           openDay={openDay}
           openMonth={openMonth}
           peoplePanel={peoplePanel}
+          years={years}
+          year={settings.year}
+          onYear={(y) => patch({ year: y })}
         />
       ) : null}
-      {tab === "calendar" && shown.length ? (
+      {tab === "calendar" && days.length ? (
         <Calendar
-          days={shown}
+          days={days}
           snap={snap ?? EMPTY_SNAPSHOTS}
           month={shownMonth}
           selected={selected}
-          place={settings.event.place}
+          tz={settings.event.tz}
           onMonth={openMonth}
-          onSelect={setSelected}
+          onSelect={selectDay}
         />
       ) : null}
-      {tab === "sources" ? (
-        <Sources
+      {tab === "about" ? (
+        <About
           note={
             hasHolidayTable(settings.event.country)
               ? undefined
-              : "No public holiday table exists yet for the event location, so holiday notes are blank."
+              : "There is no holiday list yet for the event's country, so holiday notes are blank."
           }
         />
-      ) : null}
-      {tab === "settings" ? (
-        <section className="settings" aria-label="Settings">
-          <button
-            type="button"
-            className="ghost"
-            onClick={() => {
-              clearSettings();
-              setSettings(defaultSettings());
-            }}
-          >
-            Reset to defaults
-          </button>
-        </section>
       ) : null}
 
       <FooterCredits
         licenseHref="https://github.com/lvuCodes/tong-shu/blob/main/LICENSE"
         year={2026}
       />
+      {manifest ? <p className="updated">Data last updated {manifest.captured}</p> : null}
     </main>
   );
 }

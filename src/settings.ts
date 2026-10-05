@@ -1,6 +1,7 @@
 // Tong Shu. Copyright (C) 2026 lvuCodes. Licensed under GPL-3.0-or-later; see LICENSE.
 
 import localDefaults from "virtual:local-defaults";
+import { monthOf } from "./components/format";
 import type { EventPlace } from "./engine/almanac";
 import type { BirthInput } from "./engine/rules";
 
@@ -13,7 +14,9 @@ export interface Settings {
   hiddenCols: string[];
 }
 
-export const STORAGE_KEY = "tong-shu:v1";
+export const STORAGE_KEY = "tong-shu:v2";
+
+export const DEFAULT_HIDDEN_COLS = ["lunar", "officer", "god", "clash", "hours", "sources"];
 
 interface CouplePerson {
   label: string;
@@ -82,10 +85,6 @@ function fromCouple(p: CouplePerson): BirthInput {
   };
 }
 
-function monthOf(d: Date): string {
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
-}
-
 export function defaultSettings(
   local: LocalDefaults | null = localDefaults as LocalDefaults | null,
   today = new Date(),
@@ -107,9 +106,11 @@ export function defaultSettings(
     people,
     event,
     start: monthOf(today),
-    end: `${today.getFullYear() + 2}-12`,
+    end: local?.couple
+      ? `${today.getFullYear() + 2}-12`
+      : monthOf(new Date(today.getFullYear(), today.getMonth() + 11, 1)),
     year: "all",
-    hiddenCols: [],
+    hiddenCols: DEFAULT_HIDDEN_COLS,
   };
 }
 
@@ -128,13 +129,5 @@ export function saveSettings(s: Settings): void {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
   } catch {
     // Storage blocked: settings last for this page session only.
-  }
-}
-
-export function clearSettings(): void {
-  try {
-    localStorage.removeItem(STORAGE_KEY);
-  } catch {
-    // Storage blocked: nothing to clear.
   }
 }

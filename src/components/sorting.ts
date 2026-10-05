@@ -1,7 +1,6 @@
 // Tong Shu. Copyright (C) 2026 lvuCodes. Licensed under GPL-3.0-or-later; see LICENSE.
 
 import type { Day } from "../engine/almanac";
-import type { Column } from "./columns";
 
 export type Sort = { key: string; dir: "ascending" | "descending" } | null;
 
@@ -10,7 +9,12 @@ export function nextSort(cur: Sort, key: string): Sort {
   return cur.dir === "ascending" ? { key, dir: "descending" } : null;
 }
 
-export function sortRows(days: Day[], cols: Column[], sort: Sort): Day[] {
+export interface Sortable<T> {
+  key: string;
+  sort?: (row: T) => number | string;
+}
+
+export function sortRows<T = Day>(days: T[], cols: Sortable<T>[], sort: Sort): T[] {
   const col = sort && cols.find((c) => c.key === sort.key);
   if (!sort || !col?.sort) return days;
   const sign = sort.dir === "ascending" ? 1 : -1;

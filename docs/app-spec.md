@@ -8,7 +8,8 @@
 
 ## Base
 
-- **App shell:** masthead, tabs (Date selection, Calendar, Sources, Settings), `@lvucodes/ui` theme tokens and theme switcher, project fonts (Atkinson Hyperlegible Next, Hepta Slab, Atkinson Hyperlegible Mono).
+- **App shell:** masthead with a one-line description of the Tong Shu, tabs (Date View, Calendar View, About). About holds the overview, process (with a collapsible Formulas table giving every score, rating rule, ranking key and the true solar time correction in MathML notation), a terms glossary (stems and branches, pillars, day officers with their uses, day gods by belt, solar terms and other almanac items), limitations, privacy notes and, last, the sources with each saved list's year coverage (read from the data manifest), written at an 8th-grade reading level, `@lvucodes/ui` theme tokens and theme switcher, project fonts (Atkinson Hyperlegible Next, Hepta Slab, Atkinson Hyperlegible Mono).
+- **Navigation:** the tab, calendar month and selected day live in the URL hash (`#calendar/2027-05/2027-05-14`), so the browser Back and Forward buttons and Cmd+[ step through them.
 - **Calendar engine:** `lunar-javascript` as a pinned npm dependency, the same 6tail rules as `lunar_python`, for pillars, solar terms, 建除, 天神, 宿, 纳音, 神煞, 宜忌 and hour data.
 - **Rules module:** JavaScript port of `zeri.py` with identical function names and outputs:
   - `branchRelations`, `tenGod`, `assessPillars`, `assessPerson`, `assessGroup`
@@ -25,7 +26,7 @@ Each feature depends only on the base and touches one state field, one clause at
 
 - 1 to 2 people for couple activities, 1 person for single-person activities.
 - Per person: label (free text, default "Partner A" and "Partner B"), birth date, birth time or time range, birth place.
-- Per person **spouse-star basis** selector, set independently of the other person:
+- Per person **gender** selector, which sets the spouse-star basis independently of the other person:
   - **Officer stars 正官/七杀**: the traditional basis for a woman.
   - **Wealth stars 正财/偏财**: the traditional basis for a man.
   - Default follows the person's stated gender. Same-sex couples choose per person, for example both Officer or both Wealth.
@@ -87,7 +88,7 @@ Each feature depends only on the base and touches one state field, one clause at
 - Cross-check snapshots cover 2020 to 2035. Dates outside that range show computed values only, with the Cross-check panel stating that no snapshot exists.
 - Year filter and month filter (multi-select chips), applied to every table and the calendar.
 - Weekday filter (weekends only, specific weekdays).
-- Tier filter (Recommended, Acceptable, Caution, Excluded).
+- Tier filter (Recommended, Acceptable, Caution, Excluded), displayed as Great, Good, Caution and Poor.
 
 ### Hidden Dates
 
@@ -106,7 +107,7 @@ Each feature depends only on the base and touches one state field, one clause at
 
 ### Location
 
-- Event location and each birth location take a city search from a bundled city list (name, latitude, longitude, IANA time zone), with manual latitude, longitude and time-zone entry as the fallback.
+- Event location and each birth location take a place search through the Open-Meteo geocoding API, which fills the longitude, IANA time zone and holiday country. No manual coordinate or time-zone entry.
 - Local clock windows for each 时辰 use true solar time (longitude correction, equation of time, daylight saving through `Intl` time-zone data).
 - Holiday notes follow the event country: US federal holidays for the US, with a pluggable holiday table per country.
 
@@ -156,31 +157,24 @@ Each feature depends only on the base and touches one state field, one clause at
 - Lunar-year table with spring count (无春, 单春, 双春), leap month and year-branch relations.
 - Hour table per day with local clock window, hour god, luck and people-safe flag.
 - Clashing birth years per day.
-- Dong Gong 董公选择日要览 verdict per day, with original text and translation in the tooltip, its marriage verdict counted as a flag.
-- Hexagram per day pillar with Xuan Kong Da Gua details in the tooltip.
+- Dǒng Gōng 董公选择日要览 verdict per day, with original text and translation in the tooltip, its marriage verdict counted as a flag.
+- Hexagram per day pillar with Xuán Kōng Dà Guà details in the tooltip.
 
 ## Page Layout
 
-### Date Selection Tab
+### Date View Tab
 
 Top to bottom:
 
-1. Range heading with one count pill per tier plus a weekend-options pill. Each pill jumps to its table, and its tooltip gives the tier definition.
-2. **People:** always visible, never collapsible. Holds the People and Roles inputs, with each person's derived pillars, hour options and day master shown beside them.
-3. Collapsible reference sections, closed by default, each keeping its open state across re-renders:
-    1. Day animals (zodiac wheel)
-    2. Day branch effects
-    3. Lunar years
-    4. Column guide
-4. Column picker, sticky at the top of the viewport.
-5. Tier tables: Recommended, Weekend options, Acceptable, Caution, Excluded.
-6. Monthly counts.
+1. **People:** always visible, never collapsible. The left quarter of the page holds Event details (event type, place, start and end month, with a note recommending staying within 3 calendar years when the range touches more, and a note when the start or end month is before the current month) with the person boxes stacked under it (label, gender, birth date, birth time, birth place), each titled above its box. A Clear all data button under the last person box resets every input to the sample couple after a confirmation. The right three quarters stack collapsible Lunar years (open by default), Four Pillars 八字, Day animals (zodiac wheel), Day branch effects and Monthly counts (one table per year, side by side when the width allows, with whole-word headers: Month, Count, Great, Good, Caution, Poor) sections. Lunar years and Monthly counts open by default, the rest closed. Below 720px the two parts stack.
+2. Filter bar, sticky at the top of the viewport: tier filter pills with counts (each tooltip gives the tier definition), year filter, column picker with a Show all button. Date is always shown. Default columns hide Lunar date, Day officer, Day god, Clashing birth year, Best local hours, and Sources and notes.
+3. Tier tables: Great, Good, Caution, Poor, in the same order as the filter pills. Each is a collapsible section, open by default, shown only while its filter pill is on. A Weekends only toggle beside the year filter limits every table and count to Saturdays and Sundays.
 
 ### Date Tables
 
-- Column order: Date, Day, Lunar date, Day pillar 日柱, Day officer 建除, Day god 天神, one rating column per person, Overall, Clashing birth year, Best hours, Dong Gong, Flags, Adjusted with flags, Listed for weddings by, Notes.
-- Excluded table columns: Date, Day, Day pillar, Taboos, one rating column per person, Overall, Flags, Adjusted with flags, Listed for weddings by.
-- No rank column. Default row order for Recommended and Acceptable is the rank key: adjusted score, main-almanac listing, source count, Yellow Belt day god, then date. Weekend, Caution and Excluded default to date order.
+- Column order: Date, Day, Best local hours, Lunar date, Day pillar 日柱, Day officer 建除, Day god 天神, one rating column per person, Overall score, Clashing birth year, Dǒng Gōng, Flags, Adjusted score, Sources and notes.
+- Excluded table columns: Date, Day, Day pillar, Taboos, one rating column per person, Overall score, Flags, Adjusted score, Sources and notes.
+- No rank column. Default row order for Recommended and Acceptable is the rank key: adjusted score, listing in our almanac, source count, Yellow Belt day god, then date. Caution and Excluded default to date order.
 - Sortable columns:
 
 | Column | Sort value |
@@ -188,10 +182,10 @@ Top to bottom:
 | Date | ISO date |
 | Day | Monday to Sunday |
 | Person rating | person score |
-| Overall | total score |
-| Dong Gong | manual rating, xx to *** |
+| Overall score | total score |
+| Dǒng Gōng | manual rating, xx to *** |
 | Flags | net flag points |
-| Adjusted with flags | adjusted score |
+| Adjusted score | adjusted score |
 | Listed for weddings by | source count |
 | Taboos | taboo count |
 
@@ -206,7 +200,7 @@ Top to bottom:
     - Source checklist as chips, listed sources highlighted
     - Taboos
     - Per-person notes as a bulleted list under each person's rating pill
-    - Flags, Dong Gong, Hexagram
+    - Flags, Dǒng Gōng, Hexagram
 - Hour table per day.
 
 ### Tooltips
@@ -256,16 +250,9 @@ Top to bottom:
 - Language toggle cases: no Chinese-only string is missing a translation in the dictionary.
 - Tooltip cases: every pill has a non-empty tooltip, and no tooltip shares a two-word phrase with the caption or label shown beside its pill, checked across every rendered pill.
 - Sort cases: each sortable column orders rows correctly in both directions, and a third click restores the default order.
-- Layout cases: every count pill's jump target exists, and the column guide lists every column definition.
-
-## Open Decisions
-
-- **City list size: about 1,000 major cities bundled (recommended)**, or manual coordinates only.
+- Layout cases: each tier filter pill hides and shows its table, and every column header carries its definition as a tooltip.
 
 ## Planned Work
 
 - **Layout revamp:** redesign of the Date selection and Calendar tabs, including placement of the People panel, range picker and tier tables.
-- **Auto calculations:**
-    - Birth and event latitude, longitude and time zone filled from the place name through the bundled city list, with manual entry kept as the override.
-    - Spouse-star basis derived from each person's stated gender, still adjustable per person.
 - **Info pages:** reference pages explaining the almanac terms, rating method, taboos, flags and sources in more depth than the tooltips and column guide.

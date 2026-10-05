@@ -111,5 +111,6 @@ declare module "lunar-javascript" {
     ZHI_TIAN_SHEN_OFFSET: Record<string, number>;
     TIAN_SHEN_TYPE: Record<string, string>;
     TIAN_SHEN_TYPE_LUCK: Record<string, string>;
+    YI_JI: string[];
   };
 }

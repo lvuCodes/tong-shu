@@ -24,7 +24,7 @@ export const FLAG_TIPS: Readonly<Record<string, string>> = {
   厌对: "Falls opposite the Monthly Loathing day (月厌). Older almanacs treat it as a wedding taboo.",
   天罡: "A harsh star that older wedding manuals avoid.",
   河魁: "A harsh star that older wedding manuals avoid.",
-  不将: "Marks days free of the obstructing generals. Long favored for marriage.",
+  不将: "Marks days free of the blocking generals. Long favored for weddings.",
   天喜: "A star of celebrations and happy events.",
   天赦: "One of the most auspicious stars. Said to forgive faults and clear obstacles.",
   孤辰日: "Computed from the birth-year animal. Folk belief links it to loneliness in marriage.",
@@ -70,7 +70,7 @@ export const SOFT_POSITIVE_STARS: Readonly<Record<string, string>> = {
 };
 
 export const VIRTUE_TIP =
-  "Virtue stars 天德 Heavenly Virtue, 月德 Monthly Virtue, 天德合 and 月德合 are protective stars placed by the month branch. The almanac says they dissolve harm, so each one adds +1.";
+  "Virtue stars 天德 Heavenly Virtue, 月德 Monthly Virtue, 天德合 and 月德合 are protective stars set by the month. The almanac says they cancel out harm, so each one adds +1.";
 export const STEMS = "甲乙丙丁戊己庚辛壬癸";
 export const BRANCHES = "子丑寅卯辰巳午未申酉戌亥";
 export const STEM_ELEMENTS: Readonly<Record<string, string>> = {
@@ -580,7 +580,7 @@ export function softFlags(lunar: LunarDay, people: Person[], year: LunarYearInfo
   if (MONTH_TABOO_DAYS.has(lunar.getDay()))
     out.push(flag("caution", "月忌日", "Monthly taboo day, lunar 5th, 14th or 23rd"));
   if (lunar.getPengZuZhi().includes("嫁娶") || lunar.getPengZuGan().includes("嫁娶"))
-    out.push(flag("caution", "彭祖忌嫁娶", "Peng Zu taboo names weddings on this day"));
+    out.push(flag("caution", "彭祖忌嫁娶", "Péng Zǔ taboo names weddings on this day"));
   if (lunar.getJieQi() === "清明") out.push(flag("caution", "清明", "Tomb Sweeping Day"));
   for (const star of lunar.getDayXiongSha())
     if (star in SOFT_CAUTION_STARS)
@@ -644,16 +644,16 @@ export function tierReason(
   if (tier === null) return "No source lists this day for weddings.";
   if (tier === "Excluded")
     return taboos.length
-      ? `Excluded by ${taboos.join(", ")}.`
-      : "Excluded because a chart clash rates the pair Avoid.";
+      ? `Ruled out by ${taboos.join(", ")}.`
+      : "Ruled out because a clash with a birth chart rates it Avoid.";
   if (tier === "Caution")
-    return `Listed for weddings, but the adjusted overall rating is ${verdict}, so one partner has a serious chart conflict or the flags weigh it down.`;
+    return `Listed for weddings, but the adjusted rating is ${verdict}. One partner has a serious conflict with the day, or warning flags pull it down.`;
   if (tier === "Recommended")
-    return `lunar-python lists 嫁娶, no hard taboos apply, and the adjusted overall rating is ${verdict}.`;
+    return `Our almanac lists the day for 嫁娶 weddings, no wedding taboo rules it out, and the adjusted rating is ${verdict}.`;
   const reason = !sources.lunar_python
-    ? "lunar-python does not list 嫁娶"
-    : `the adjusted overall rating is only ${verdict}`;
-  return `Listed by at least one source with no hard taboos, but ${reason}.`;
+    ? "our almanac does not list it for weddings"
+    : `the adjusted rating is only ${verdict}`;
+  return `Listed by at least one almanac with no wedding taboo, but ${reason}.`;
 }
 
 const DONG_GONG_SYMBOLS: Record<number, string> = {
@@ -714,8 +714,8 @@ export function dongGongLookup(
 }
 
 export function dongGongFlags(dg: DongGong): Flag[] {
-  if (dg.marriage === "good") return [flag("positive", "董公宜婚", "Dong Gong favors weddings")];
+  if (dg.marriage === "good") return [flag("positive", "董公宜婚", "Dǒng Gōng favors weddings")];
   if (dg.marriage === "bad")
-    return [flag("caution", "董公忌婚", "Dong Gong advises against weddings")];
+    return [flag("caution", "董公忌婚", "Dǒng Gōng advises against weddings")];
   return [];
 }

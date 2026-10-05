@@ -22,7 +22,12 @@ export function SortableTable({
         <tr>
           {cols.map((c) =>
             c.sort ? (
-              <th key={c.key} aria-sort={sort?.key === c.key ? sort.dir : "none"}>
+              <th
+                key={c.key}
+                className="coltip"
+                data-tip={c.desc}
+                aria-sort={sort?.key === c.key ? sort.dir : "none"}
+              >
                 <button
                   type="button"
                   className="sorter"
@@ -32,7 +37,9 @@ export function SortableTable({
                 </button>
               </th>
             ) : (
-              <th key={c.key}>{c.label}</th>
+              <th key={c.key} className="coltip" data-tip={c.desc}>
+                {c.label}
+              </th>
             ),
           )}
         </tr>

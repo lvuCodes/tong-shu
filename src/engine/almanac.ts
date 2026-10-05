@@ -126,7 +126,7 @@ export interface Day {
 }
 
 export const SOURCE_LABELS: Readonly<Record<string, string>> = {
-  lunar_python: "lunar-python",
+  lunar_python: "Our almanac",
   chinesecalendaronline: "CCO",
   tongshutoday: "TST",
   yourchineseastrology: "YCA",

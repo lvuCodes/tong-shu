@@ -33,7 +33,7 @@
 
 | Source | URL | Missing data | Status |
 |---|---|---|---|
-| Chinese Metasoft | `https://www.chinesemetasoft.com/TongShu/Monthly?Type=Professional` | 董公 Dong Gong rating for months after 2026-10 | The free monthly view shows only the current month and ignores Year and Month parameters. 2026-10 is captured in [chinesemetasoft-dong-gong.json](../pipeline/data/sources/chinesemetasoft-dong-gong.json). Each later month can be captured once it becomes the current month. Single dates beyond today ±1 day need the paid Bronze package. |
+| Chinese Metasoft | `https://www.chinesemetasoft.com/TongShu/Monthly?Type=Professional` | 董公 Dǒng Gōng rating for months after 2026-10 | The free monthly view shows only the current month and ignores Year and Month parameters. 2026-10 is captured in [chinesemetasoft-dong-gong.json](../pipeline/data/sources/chinesemetasoft-dong-gong.json). Each later month can be captured once it becomes the current month. Single dates beyond today ±1 day need the paid Bronze package. |
 | Skillon | `https://www.skillon.com/almanac.cfm` | 宜忌 for future dates | Paywalled. Officers and pillars are already covered. |
 | mingli.info | `https://www.mingli.info/calendar` | 奇门遁甲 charts | Saved page covered 2026-09 only. |
 

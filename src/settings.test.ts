@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { countryOf, defaultSettings, loadSettings, saveSettings, STORAGE_KEY } from "./settings";
+import {
+  countryOf,
+  DEFAULT_HIDDEN_COLS,
+  defaultSettings,
+  loadSettings,
+  saveSettings,
+  STORAGE_KEY,
+} from "./settings";
 
 const TODAY = new Date(2026, 9, 4);
 
@@ -7,7 +14,9 @@ describe("defaultSettings", () => {
   it("falls back to synthetic people when no local defaults exist", () => {
     const s = defaultSettings(null, TODAY);
     expect(s.people.map((p) => p.label)).toEqual(["Partner A", "Partner B"]);
-    expect([s.start, s.end]).toEqual(["2026-10", "2028-12"]);
+    expect([s.start, s.end]).toEqual(["2026-10", "2027-09"]);
+    expect(defaultSettings(null, new Date(2026, 0, 15)).end).toBe("2026-12");
+    expect(s.hiddenCols).toEqual(DEFAULT_HIDDEN_COLS);
   });
 
   it("uses local people and lets the app event override the couple event", () => {
@@ -37,6 +46,7 @@ describe("defaultSettings", () => {
       basis: "wealth",
     });
     expect(s.event).toEqual({ place: "Sapporo", tz: "Asia/Tokyo", lon: 141.35, country: "JP" });
+    expect(s.end).toBe("2028-12");
   });
 
   it("infers the holiday country from the time zone", () => {
