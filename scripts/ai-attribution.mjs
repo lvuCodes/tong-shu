@@ -140,6 +140,18 @@ export const coAuthoredAdded = (root, baseline, exclude = [], run = (args) => gi
     exclude,
   );
 
+export const isBot = (email) => /\[bot\]@/.test(email);
+
+export const committedAdded = (root, baseline, exclude = [], run = (args) => git(root, args)) =>
+  run(["log", "--numstat", "--no-renames", "--format=%x00%ae", `${baseline}..HEAD`])
+    .split("\0")
+    .filter(Boolean)
+    .reduce((sum, commit) => {
+      const nl = commit.indexOf("\n");
+      const email = nl === -1 ? commit : commit.slice(0, nl);
+      return isBot(email) || nl === -1 ? sum : sum + parseNumstat(commit.slice(nl + 1), exclude);
+    }, 0);
+
 export const percent = (part, whole) => (whole > 0 ? Math.round((part / whole) * 1000) / 10 : 0);
 
 const TIMESTAMP = "_Generated ";
@@ -174,6 +186,7 @@ Baseline commit \`${config.baselineCommit.slice(0, 7)}\` (${config.baselineDate}
 
 - The figures count **lines added since the baseline commit**, not lines currently surviving in the working tree. A line written once and rewritten twice is counted three times.
 - Everything committed **before the baseline** is unattributed and appears in no column. Authorship there cannot be honestly reconstructed, so it is not guessed at.
+- Commits authored by **bots** such as Dependabot appear in no column, since neither Claude nor the author wrote them.
 - Claude's lines are the larger of two counts: edits the ledger recorded through **Claude Code's own editing tools**, and every line added by a commit carrying a \`Co-Authored-By: Claude\` trailer. Anything else counts as the author's.
 - A line count is **not a claim about authorship of design or direction**. What to build, which generated output to keep, and what to reject are the author's, and none of it appears in a diff.
 - Figures are computed from \`.ai-attribution/ledger.jsonl\` — an append-only record written as each edit lands — joined against \`git log --numstat\`. The ledger is committed as the evidence behind this report.
@@ -205,10 +218,7 @@ export const generate = (root = ROOT) => {
   // The report is always excluded from its own figures, whatever the config says: it
   // is regenerated from them, so counting it would move the number it reports.
   const exclude = [...(config.exclude || []), config.report];
-  const committed = parseNumstat(
-    git(root, ["log", "--numstat", "--no-renames", "--format=", `${baseline}..HEAD`]),
-    exclude,
-  );
+  const committed = committedAdded(root, baseline, exclude);
   const uncommitted = parseNumstat(
     git(root, ["diff", "--numstat", "--no-renames", "HEAD"]),
     exclude,

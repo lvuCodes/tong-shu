@@ -11,6 +11,7 @@ AI-USAGE.md
 docs
 pipeline
 local
+.claude
 
 # Stylesheets are hand-formatted and linted by stylelint instead.
 **/*.css

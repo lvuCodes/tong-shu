@@ -627,6 +627,79 @@ th.coltip:nth-last-child(-n + 3)::after {
   display: flex;
 }
 
+.boxhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.boxhead h3 {
+  margin: 0;
+}
+
+.boxhead .ghost {
+  padding: 2px 12px;
+  font-size: 13px;
+}
+
+.place {
+  display: grid;
+  gap: 2px;
+}
+
+.placefield {
+  position: relative;
+  display: grid;
+}
+
+.placelist {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin: 4px 0 0;
+  padding: 4px 0;
+  list-style: none;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--text-h) 20%, transparent);
+}
+
+.placelist li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+  color: var(--text-h);
+}
+
+.placelist li[aria-selected="true"] {
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg));
+}
+
+.placelist .pin {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  fill: var(--muted);
+}
+
+.placetext {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.placeregion {
+  color: var(--muted);
+}
+
 .timerange {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);

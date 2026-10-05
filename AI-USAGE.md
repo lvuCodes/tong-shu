@@ -4,9 +4,9 @@
 
 | Measure | Lines added |
 |---|---|
-| **By Claude** | 10,557 |
+| **By Claude** | 11,077 |
 | **By the author** | 14 |
-| **Total since baseline** | 10,571 |
+| **Total since baseline** | 11,091 |
 
 Baseline commit `a09c643` (2026-10-02). Regenerate with `node scripts/ai-attribution.mjs`.
 
@@ -14,6 +14,7 @@ Baseline commit `a09c643` (2026-10-02). Regenerate with `node scripts/ai-attribu
 
 - The figures count **lines added since the baseline commit**, not lines currently surviving in the working tree. A line written once and rewritten twice is counted three times.
 - Everything committed **before the baseline** is unattributed and appears in no column. Authorship there cannot be honestly reconstructed, so it is not guessed at.
+- Commits authored by **bots** such as Dependabot appear in no column, since neither Claude nor the author wrote them.
 - Claude's lines are the larger of two counts: edits the ledger recorded through **Claude Code's own editing tools**, and every line added by a commit carrying a `Co-Authored-By: Claude` trailer. Anything else counts as the author's.
 - A line count is **not a claim about authorship of design or direction**. What to build, which generated output to keep, and what to reject are the author's, and none of it appears in a diff.
 - Figures are computed from `.ai-attribution/ledger.jsonl` — an append-only record written as each edit lands — joined against `git log --numstat`. The ledger is committed as the evidence behind this report.
@@ -34,4 +35,4 @@ Baseline commit `a09c643` (2026-10-02). Regenerate with `node scripts/ai-attribu
 - `local/**`
 - `pipeline/data/**`
 
-_Generated 2026-10-05 23:00:02Z.
+_Generated 2026-10-05 23:54:48Z.

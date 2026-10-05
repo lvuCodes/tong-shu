@@ -3,6 +3,8 @@
 import { useId, type ReactNode } from "react";
 import type { EventPlace } from "../engine/almanac";
 import type { BirthInput, Person, SpouseBasis } from "../engine/rules";
+import { DraftInput } from "./DraftInput";
+import { hourAfter } from "./format";
 import { PlaceInput } from "./PlaceInput";
 
 interface Props {
@@ -13,6 +15,8 @@ interface Props {
   onEvent: (event: EventPlace) => void;
   range: ReactNode;
   onClear: () => void;
+  onClearEvent: () => void;
+  onClearPerson: (i: number) => void;
 }
 
 const GENDERS: [SpouseBasis, string][] = [
@@ -20,11 +24,24 @@ const GENDERS: [SpouseBasis, string][] = [
   ["wealth", "Male"],
 ];
 
-function Box({ title, children }: { title: string; children: ReactNode }) {
+function Box({
+  title,
+  onClear,
+  children,
+}: {
+  title: string;
+  onClear: () => void;
+  children: ReactNode;
+}) {
   const id = useId();
   return (
     <div className="personcol">
-      <h3 id={id}>{title}</h3>
+      <div className="boxhead">
+        <h3 id={id}>{title}</h3>
+        <button type="button" className="ghost" aria-label={`Clear ${title}`} onClick={onClear}>
+          Clear
+        </button>
+      </div>
       <fieldset className="person" aria-labelledby={id}>
         {children}
       </fieldset>
@@ -32,14 +49,24 @@ function Box({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
-export function PeoplePanel({ people, derived, event, onPeople, onEvent, range, onClear }: Props) {
+export function PeoplePanel({
+  people,
+  derived,
+  event,
+  onPeople,
+  onEvent,
+  range,
+  onClear,
+  onClearEvent,
+  onClearPerson,
+}: Props) {
   const update = (i: number, patch: Partial<BirthInput>) =>
     onPeople(people.map((p, j) => (j === i ? { ...p, ...patch } : p)));
   const ranged = (p: BirthInput) => Boolean(p.timeRange);
   return (
     <section className="peoplegrid" aria-label="People">
       <div className="spouses">
-        <Box title="Event details">
+        <Box title="Event details" onClear={onClearEvent}>
           <label>
             Event type
             <select defaultValue="wedding">
@@ -57,10 +84,10 @@ export function PeoplePanel({ people, derived, event, onPeople, onEvent, range, 
         {people.map((p, i) => {
           const d = derived[i];
           return (
-            <Box key={i} title={p.label || `Person ${i + 1}`}>
+            <Box key={i} title={p.label || `Person ${i + 1}`} onClear={() => onClearPerson(i)}>
               <label>
                 Label
-                <input value={p.label} onChange={(e) => update(i, { label: e.target.value })} />
+                <DraftInput value={p.label} onCommit={(v) => update(i, { label: v })} />
               </label>
               <label>
                 Gender
@@ -77,11 +104,7 @@ export function PeoplePanel({ people, derived, event, onPeople, onEvent, range, 
               </label>
               <label>
                 Birth date
-                <input
-                  type="date"
-                  value={p.date}
-                  onChange={(e) => update(i, { date: e.target.value })}
-                />
+                <DraftInput type="date" value={p.date} onCommit={(v) => update(i, { date: v })} />
               </label>
               <label className="check">
                 <input
@@ -91,7 +114,10 @@ export function PeoplePanel({ people, derived, event, onPeople, onEvent, range, 
                     update(
                       i,
                       e.target.checked
-                        ? { timeRange: [p.time ?? "12:00", p.time ?? "12:00"], time: undefined }
+                        ? {
+                            timeRange: [p.time ?? "12:00", hourAfter(p.time ?? "12:00")],
+                            time: undefined,
+                          }
                         : { time: p.timeRange?.[0] ?? "12:00", timeRange: undefined },
                     )
                   }
@@ -102,28 +128,28 @@ export function PeoplePanel({ people, derived, event, onPeople, onEvent, range, 
                 <span className="timerange">
                   <label>
                     Start
-                    <input
+                    <DraftInput
                       type="time"
                       value={p.timeRange![0]}
-                      onChange={(e) => update(i, { timeRange: [e.target.value, p.timeRange![1]] })}
+                      onCommit={(v) => update(i, { timeRange: [v, hourAfter(v)] })}
                     />
                   </label>
                   <label>
                     End
-                    <input
+                    <DraftInput
                       type="time"
                       value={p.timeRange![1]}
-                      onChange={(e) => update(i, { timeRange: [p.timeRange![0], e.target.value] })}
+                      onCommit={(v) => update(i, { timeRange: [p.timeRange![0], v] })}
                     />
                   </label>
                 </span>
               ) : (
                 <label>
                   Birth time
-                  <input
+                  <DraftInput
                     type="time"
                     value={p.time ?? ""}
-                    onChange={(e) => update(i, { time: e.target.value })}
+                    onCommit={(v) => update(i, { time: v })}
                   />
                 </label>
               )}

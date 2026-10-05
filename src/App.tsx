@@ -117,6 +117,14 @@ function App() {
       event={settings.event}
       onPeople={(p) => patch({ people: p })}
       onEvent={(e) => patch({ event: e })}
+      onClearEvent={() => {
+        const { event, start, end } = defaultSettings(null);
+        patch({ event, start, end, year: "all" });
+      }}
+      onClearPerson={(i) => {
+        const fresh = defaultSettings(null).people[i];
+        patch({ people: settings.people.map((p, j) => (j === i ? fresh : p)) });
+      }}
       onClear={() => {
         if (window.confirm("Clear all entered data and reset to the sample couple?"))
           setSettings(defaultSettings(null));
