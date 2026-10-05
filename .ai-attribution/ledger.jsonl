@@ -62,3 +62,8 @@
 {"ts":"2026-10-05T16:42:01-05:00","file":"src/components/Formulas.tsx","tool":"Write","added":292,"removed":0,"head":"6a3fa52","session":"23abe47e-d016-4b23-bd6a-13c76ad64a9b","kind":"code","snapshot":null}
 {"ts":"2026-10-05T16:44:35-05:00","file":"src/components/Formulas.tsx","tool":"Write","added":362,"removed":278,"head":"6a3fa52","session":"23abe47e-d016-4b23-bd6a-13c76ad64a9b","kind":"code","snapshot":null}
 {"ts":"2026-10-05T16:46:20-05:00","file":"src/components/Formulas.tsx","tool":"Write","added":305,"removed":397,"head":"6a3fa52","session":"23abe47e-d016-4b23-bd6a-13c76ad64a9b","kind":"code","snapshot":null}
+{"ts":"2026-10-05T18:25:46-05:00","file":"scripts/ai-attribution.mjs","tool":"Edit","added":13,"removed":1,"head":"049d69d","session":"3b55eaea-78a5-40ab-b1b3-f26e666b984c","kind":"code","snapshot":null}
+{"ts":"2026-10-05T18:25:47-05:00","file":"scripts/ai-attribution.mjs","tool":"Edit","added":1,"removed":4,"head":"049d69d","session":"3b55eaea-78a5-40ab-b1b3-f26e666b984c","kind":"code","snapshot":null}
+{"ts":"2026-10-05T18:25:47-05:00","file":"scripts/ai-attribution.mjs","tool":"Edit","added":1,"removed":0,"head":"049d69d","session":"3b55eaea-78a5-40ab-b1b3-f26e666b984c","kind":"code","snapshot":null}
+{"ts":"2026-10-05T18:25:57-05:00","file":"scripts/ai-attribution.test.mjs","tool":"Edit","added":1,"removed":1,"head":"049d69d","session":"3b55eaea-78a5-40ab-b1b3-f26e666b984c","kind":"code","snapshot":null}
+{"ts":"2026-10-05T18:25:57-05:00","file":"scripts/ai-attribution.test.mjs","tool":"Edit","added":10,"removed":0,"head":"049d69d","session":"3b55eaea-78a5-40ab-b1b3-f26e666b984c","kind":"code","snapshot":null}
