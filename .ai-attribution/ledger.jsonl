@@ -70,3 +70,4 @@
 {"ts":"2026-10-05T18:41:51-05:00","file":"src/components/DraftInput.tsx","tool":"Write","added":49,"removed":0,"head":"049d69d","session":"db2d2e55-52f4-41f3-b7e2-0199ddac05b4","kind":"code","snapshot":null}
 {"ts":"2026-10-05T18:42:04-05:00","file":"src/components/DraftInput.tsx","tool":"Write","added":21,"removed":10,"head":"049d69d","session":"db2d2e55-52f4-41f3-b7e2-0199ddac05b4","kind":"code","snapshot":null}
 {"ts":"2026-10-05T18:42:50-05:00","file":"src/components/PlaceInput.tsx","tool":"Write","added":71,"removed":13,"head":"049d69d","session":"db2d2e55-52f4-41f3-b7e2-0199ddac05b4","kind":"code","snapshot":null}
+{"ts":"2026-10-26T11:17:44-05:00","file":"scripts/ai-attribution-changes.test.mjs","tool":"Write","added":82,"removed":0,"head":"7e57eb9","session":"42c131ab-cddd-4e54-81f4-bfdb072f2146","kind":"code","snapshot":null}
